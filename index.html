@@ -186,16 +186,16 @@
     <script src="main.js"></script>
     
     <!-- Waline 评论系统 -->
-    <script src="https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.css" />
-    <script>
-    Waline.init({
+    <script type="module">
+    import { init } from 'https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.js';
+    
+    init({
         el: '#waline',
         serverURL: 'https://waline.vercel.app',
         lang: 'zh-CN',
         placeholder: '写下你的留言...',
-        requiredMeta: ['nick', 'mail'],
-        emoji: ['https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo']
+        requiredMeta: ['nick', 'mail']
     });
     </script>
 </body>
