@@ -170,8 +170,8 @@
             <h2>💬 留言板</h2>
             <p class="section-desc">欢迎同学们留言、分享想法、提出建议！</p>
             
-            <!-- 来必力评论区 -->
-            <div id="lv-container" data-id="city" data-uid="vFSalNmpjxH0pgPPyKcW"></div>
+            <!-- Waline 评论区 -->
+            <div id="waline"></div>
         </div>
     </section>
 
@@ -185,17 +185,18 @@
 
     <script src="main.js"></script>
     
-    <!-- 来必力评论系统 -->
-    <script type="text/javascript">
-    (function() {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        s.async = true;
-        s.setAttribute('data-id', 'city');
-        s.setAttribute('data-uid', 'vFSalNmpjxH0pgPPyKcW');
-        (document.head || document.body).appendChild(s);
-    })();
+    <!-- Waline 评论系统 -->
+    <script src="https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.css" />
+    <script>
+    Waline.init({
+        el: '#waline',
+        serverURL: 'https://waline.vercel.app',
+        lang: 'zh-CN',
+        placeholder: '写下你的留言...',
+        requiredMeta: ['nick', 'mail'],
+        emoji: ['https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo']
+    });
     </script>
-    <noscript>请启用 JavaScript 以查看评论区。</noscript>
 </body>
 </html>
