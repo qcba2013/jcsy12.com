@@ -185,14 +185,19 @@
 
     <script src="main.js"></script>
     
-    <!-- Twikoo 评论系统 -->
-    <script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.39/dist/twikoo.all.min.js"></script>
-    <script>
-    twikoo.init({
-        envId: 'https://twikoo.vercel.app',
-        el: '#waline',
-        lang: 'zh-CN'
-    });
+    <!-- 来必力评论系统 -->
+    <div id="lv-container" data-id="city" data-uid="vFSalNmpjxH0pgPPyKcW"></div>
+    <script type="text/javascript">
+    (function() {
+        var d = document;
+        var s = d.createElement('script');
+        s.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        s.async = true;
+        s.setAttribute('data-id', 'city');
+        s.setAttribute('data-uid', 'vFSalNmpjxH0pgPPyKcW');
+        (d.head || d.body).appendChild(s);
+    })();
     </script>
+    <noscript>请启用 JavaScript 以查看评论区。</noscript>
 </body>
 </html>
