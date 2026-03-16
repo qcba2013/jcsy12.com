@@ -365,6 +365,70 @@ html {
     scroll-behavior: smooth;
 }
 
+/* 可折叠卡片样式 */
+.about-card.collapsible {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.about-card.collapsible:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.collapsible-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.about-card.collapsible.active .collapsible-header {
+    border-bottom-color: var(--primary-color);
+}
+
+.toggle-icon {
+    font-size: 0.8em;
+    transition: transform 0.3s ease;
+    color: var(--primary-color);
+}
+
+.about-card.collapsible.active .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+    opacity: 0;
+}
+
+.about-card.collapsible.active .collapsible-content {
+    max-height: 500px;
+    opacity: 1;
+    padding-top: 15px;
+}
+
+.collapsible-content p {
+    margin: 8px 0;
+    color: var(--text-light);
+}
+
+.collapsible-content p strong {
+    color: var(--primary-color);
+}
+
+.collapsible-content em {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #999;
+}
+
 /* 留言板提示框 */
 .message-notice {
     background: linear-gradient(135deg, #fff3cd, #ffe5a0);

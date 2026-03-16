@@ -150,3 +150,33 @@ function createBackToTop() {
 createBackToTop();
 
 console.log('🎉 网站交互功能已就绪！');
+
+// 可折叠卡片功能
+document.addEventListener('DOMContentLoaded', function() {
+    const collapsibleCards = document.querySelectorAll('.about-card.collapsible');
+    
+    collapsibleCards.forEach(card => {
+        const header = card.querySelector('.collapsible-header');
+        
+        header.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // 切换当前卡片的展开/收起状态
+            const isActive = card.classList.contains('active');
+            
+            // 可选：是否同时关闭其他卡片（手风琴效果）
+            // 如果要手风琴效果，取消下面这行的注释
+            // collapsibleCards.forEach(c => c.classList.remove('active'));
+            
+            if (isActive) {
+                card.classList.remove('active');
+                console.log('折叠卡片已收起');
+            } else {
+                card.classList.add('active');
+                console.log('折叠卡片已展开');
+            }
+        });
+    });
+    
+    console.log('✅ 可折叠卡片功能已加载');
+});
