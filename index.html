@@ -66,6 +66,12 @@
         font-size: 0.9em;
         color: #999;
     }
+    /* 评论区样式 */
+    .teacher-comments {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 2px solid #f0f0f0;
+    }
     </style>
 </head>
 <body>
@@ -104,7 +110,8 @@
                         <p><strong>姓名：</strong>（待补充）</p>
                         <p><strong>教龄：</strong>（待补充）</p>
                         <p><strong>寄语：</strong>（待补充）</p>
-                        <p><em>点击上方标题可以收起/展开</em></p>
+                        <!-- Disqus 评论区 -->
+                        <div class="teacher-comments" data-disqus-identifier="homeroom-teacher"></div>
                     </div>
                 </div>
                 <div class="about-card collapsible">
@@ -113,7 +120,8 @@
                         <p><strong>姓名：</strong>（待补充）</p>
                         <p><strong>教龄：</strong>（待补充）</p>
                         <p><strong>寄语：</strong>（待补充）</p>
-                        <p><em>点击上方标题可以收起/展开</em></p>
+                        <!-- Disqus 评论区 -->
+                        <div class="teacher-comments" data-disqus-identifier="chinese-teacher"></div>
                     </div>
                 </div>
                 <div class="about-card collapsible">
@@ -122,7 +130,8 @@
                         <p><strong>姓名：</strong>（待补充）</p>
                         <p><strong>教龄：</strong>（待补充）</p>
                         <p><strong>寄语：</strong>（待补充）</p>
-                        <p><em>点击上方标题可以收起/展开</em></p>
+                        <!-- Disqus 评论区 -->
+                        <div class="teacher-comments" data-disqus-identifier="math-teacher"></div>
                     </div>
                 </div>
                 <div class="about-card collapsible">
@@ -131,7 +140,8 @@
                         <p><strong>姓名：</strong>（待补充）</p>
                         <p><strong>教龄：</strong>（待补充）</p>
                         <p><strong>寄语：</strong>（待补充）</p>
-                        <p><em>点击上方标题可以收起/展开</em></p>
+                        <!-- Disqus 评论区 -->
+                        <div class="teacher-comments" data-disqus-identifier="english-teacher"></div>
                     </div>
                 </div>
             </div>
@@ -272,6 +282,9 @@
         const collapsibleCards = document.querySelectorAll('.about-card.collapsible');
         console.log('找到', collapsibleCards.length, '个折叠卡片');
         
+        // 记录每个评论区是否已加载
+        const loadedComments = {};
+        
         collapsibleCards.forEach(function(card) {
             const header = card.querySelector('.collapsible-header');
             header.style.cursor = 'pointer';
@@ -286,12 +299,41 @@
                 } else {
                     card.classList.add('active');
                     console.log('折叠卡片已展开');
+                    
+                    // 加载 Disqus 评论区
+                    const commentsDiv = card.querySelector('.teacher-comments');
+                    if (commentsDiv && !loadedComments[commentsDiv.dataset.disqusIdentifier]) {
+                        loadDisqus(commentsDiv.dataset.disqusIdentifier, commentsDiv);
+                        loadedComments[commentsDiv.dataset.disqusIdentifier] = true;
+                    }
                 }
             });
         });
         
         console.log('✅ 折叠卡片功能已加载');
     });
+    
+    // 加载 Disqus 评论区
+    function loadDisqus(identifier, element) {
+        if (window.DISQUS) {
+            // Disqus 已加载，重置评论
+            window.DISQUS.reset({
+                reload: true,
+                config: function() {
+                    this.page.identifier = identifier;
+                    this.page.url = window.location.href + '?thread=' + identifier;
+                }
+            });
+        } else {
+            // 首次加载 Disqus
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = 'https://qcba2013.disqus.com/embed.js';
+            dsq.setAttribute('data-timestamp', +new Date());
+            element.appendChild(dsq);
+        }
+    }
     </script>
     
     <!-- Disqus 评论系统 -->
