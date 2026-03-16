@@ -40,16 +40,6 @@
 </style>
 <script>
 var disqus_shortname='qcba2013';
-function loadTeacherComments(div,id){
-if(!div||div.innerHTML.trim()!=='')return;
-div.innerHTML='<div id="disqus_thread_'+id+'"></div>';
-var dsq=document.createElement('script');
-dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';
-dsq.async=true;
-dsq.setAttribute('data-timestamp',+new Date());
-dsq.setAttribute('data-disqus-identifier',id);
-div.appendChild(dsq);
-}
 document.addEventListener('DOMContentLoaded',function(){
 document.querySelectorAll('.about-card.collapsible').forEach(function(card){
 var header=card.querySelector('.collapsible-header');
@@ -57,7 +47,10 @@ header.addEventListener('click',function(){
 card.classList.toggle('active');
 if(card.classList.contains('active')){
 var div=card.querySelector('.teacher-comments');
-if(div)loadTeacherComments(div,div.getAttribute('data-id'));
+if(div&&div.innerHTML.trim()===''){
+var id=div.getAttribute('data-id');
+div.innerHTML='<iframe id="disqus_thread_'+id+'" src="https://'+disqus_shortname+'.disqus.com/embed.html?thread='+id+'" style="width:100%;min-height:200px;border:none;"></iframe>';
+}
 }
 });
 });
