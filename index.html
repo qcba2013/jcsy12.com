@@ -278,6 +278,10 @@
     <script>
     // 全局 Disqus 配置
     var disqus_shortname = 'qcba2013';
+    var disqus_config = function() {
+        this.page.url = window.location.href;
+        this.page.identifier = 'default';
+    };
     
     document.addEventListener('DOMContentLoaded', function() {
         console.log('🦐 七年级 12 班网站已加载！');
@@ -306,18 +310,22 @@
                         const identifier = commentsDiv.dataset.disqusIdentifier;
                         const teacherName = header.textContent.replace('▼', '').trim();
                         
-                        // 创建评论区 HTML（使用固定 ID）
+                        // 创建评论区 HTML
                         commentsDiv.innerHTML = '<div id="disqus_thread"></div>';
                         
-                        // 配置并加载 Disqus
+                        // 更新 Disqus 配置
+                        disqus_config = function() {
+                            this.page.url = window.location.href + '?thread=' + identifier;
+                            this.page.identifier = identifier;
+                        };
+                        
+                        // 加载 Disqus 脚本
                         (function() {
                             var dsq = document.createElement('script');
                             dsq.type = 'text/javascript';
                             dsq.async = true;
                             dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
                             dsq.setAttribute('data-timestamp', +new Date());
-                            dsq.setAttribute('data-identifier', identifier);
-                            dsq.setAttribute('data-url', window.location.href + '?thread=' + identifier);
                             commentsDiv.appendChild(dsq);
                         })();
                         
@@ -330,5 +338,12 @@
         console.log('✅ 折叠卡片功能已加载');
     });
     </script>
+    
+    <!-- 隐藏 Disqus 表情包选择器 -->
+    <style>
+    #dsq-embed-sprite, .dsq-embed-sprite, .disqus-embed-sprite {
+        display: none !important;
+    }
+    </style>
 </body>
 </html>
