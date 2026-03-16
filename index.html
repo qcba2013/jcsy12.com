@@ -13,7 +13,7 @@
         gap: 2rem;
         margin-bottom: 3rem;
     }
-    /* 折叠卡片样式 - 直接嵌入 */
+    /* 折叠卡片样式 */
     .about-card.collapsible {
         cursor: pointer;
         transition: all 0.3s ease;
@@ -72,6 +72,10 @@
         padding-top: 20px;
         border-top: 2px solid #f0f0f0;
     }
+    /* 隐藏 Disqus 表情包 */
+    .dsq-embed-sprite, #dsq-embed-sprite {
+        display: none !important;
+    }
     </style>
 </head>
 <body>
@@ -110,8 +114,7 @@
                         <p><strong>姓名：</strong>（待补充）</p>
                         <p><strong>教龄：</strong>（待补充）</p>
                         <p><strong>寄语：</strong>（待补充）</p>
-                        <!-- Disqus 评论区 -->
-                        <div class="teacher-comments" data-disqus-identifier="homeroom-teacher"></div>
+                        <div class="teacher-comments" data-identifier="homeroom"></div>
                     </div>
                 </div>
                 <div class="about-card collapsible">
@@ -120,8 +123,7 @@
                         <p><strong>姓名：</strong>（待补充）</p>
                         <p><strong>教龄：</strong>（待补充）</p>
                         <p><strong>寄语：</strong>（待补充）</p>
-                        <!-- Disqus 评论区 -->
-                        <div class="teacher-comments" data-disqus-identifier="chinese-teacher"></div>
+                        <div class="teacher-comments" data-identifier="chinese"></div>
                     </div>
                 </div>
                 <div class="about-card collapsible">
@@ -130,8 +132,7 @@
                         <p><strong>姓名：</strong>（待补充）</p>
                         <p><strong>教龄：</strong>（待补充）</p>
                         <p><strong>寄语：</strong>（待补充）</p>
-                        <!-- Disqus 评论区 -->
-                        <div class="teacher-comments" data-disqus-identifier="math-teacher"></div>
+                        <div class="teacher-comments" data-identifier="math"></div>
                     </div>
                 </div>
                 <div class="about-card collapsible">
@@ -140,8 +141,7 @@
                         <p><strong>姓名：</strong>（待补充）</p>
                         <p><strong>教龄：</strong>（待补充）</p>
                         <p><strong>寄语：</strong>（待补充）</p>
-                        <!-- Disqus 评论区 -->
-                        <div class="teacher-comments" data-disqus-identifier="english-teacher"></div>
+                        <div class="teacher-comments" data-identifier="english"></div>
                     </div>
                 </div>
             </div>
@@ -260,9 +260,7 @@
         <div class="container">
             <h2>💬 留言板</h2>
             <p class="section-desc">欢迎同学们留言、分享想法、提出建议！</p>
-            
-            <!-- Disqus 评论系统 -->
-            <div id="disqus_thread"></div>
+            <div id="disqus_thread_main"></div>
         </div>
     </section>
 
@@ -274,76 +272,49 @@
         </div>
     </footer>
 
-    <!-- 折叠卡片 JavaScript - 直接嵌入 -->
+    <!-- JavaScript -->
     <script>
-    // 全局 Disqus 配置
     var disqus_shortname = 'qcba2013';
-    var disqus_config = function() {
-        this.page.url = window.location.href;
-        this.page.identifier = 'default';
-    };
     
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('🦐 七年级 12 班网站已加载！');
+        const cards = document.querySelectorAll('.about-card.collapsible');
         
-        const collapsibleCards = document.querySelectorAll('.about-card.collapsible');
-        console.log('找到', collapsibleCards.length, '个折叠卡片');
-        
-        collapsibleCards.forEach(function(card, index) {
+        cards.forEach(function(card) {
             const header = card.querySelector('.collapsible-header');
-            header.style.cursor = 'pointer';
-            
-            header.addEventListener('click', function(e) {
-                e.preventDefault();
+            header.addEventListener('click', function() {
                 const isActive = card.classList.contains('active');
+                card.classList.toggle('active');
                 
-                if (isActive) {
-                    card.classList.remove('active');
-                    console.log('折叠卡片已收起');
-                } else {
-                    card.classList.add('active');
-                    console.log('折叠卡片已展开');
-                    
-                    // 加载该卡片的评论区
+                if (!isActive) {
                     const commentsDiv = card.querySelector('.teacher-comments');
-                    if (commentsDiv && commentsDiv.innerHTML.trim() === '') {
-                        const identifier = commentsDiv.dataset.disqusIdentifier;
-                        const teacherName = header.textContent.replace('▼', '').trim();
+                    if (commentsDiv && commentsDiv.innerHTML === '') {
+                        const id = commentsDiv.getAttribute('data-identifier');
+                        commentsDiv.innerHTML = '<div id="disqus_thread_' + id + '"></div>';
                         
-                        // 创建评论区 HTML
-                        commentsDiv.innerHTML = '<div id="disqus_thread"></div>';
-                        
-                        // 更新 Disqus 配置
-                        disqus_config = function() {
-                            this.page.url = window.location.href + '?thread=' + identifier;
-                            this.page.identifier = identifier;
-                        };
-                        
-                        // 加载 Disqus 脚本
+                        // 加载 Disqus
                         (function() {
                             var dsq = document.createElement('script');
-                            dsq.type = 'text/javascript';
+                            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
                             dsq.async = true;
-                            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
                             dsq.setAttribute('data-timestamp', +new Date());
                             commentsDiv.appendChild(dsq);
                         })();
-                        
-                        console.log('已加载评论区：' + teacherName);
                     }
                 }
             });
         });
-        
-        console.log('✅ 折叠卡片功能已加载');
     });
     </script>
     
-    <!-- 隐藏 Disqus 表情包选择器 -->
-    <style>
-    #dsq-embed-sprite, .dsq-embed-sprite, .disqus-embed-sprite {
-        display: none !important;
-    }
-    </style>
+    <!-- 主留言板 Disqus -->
+    <script>
+    (function() {
+        var dsq = document.createElement('script');
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.async = true;
+        dsq.setAttribute('data-timestamp', +new Date());
+        (document.head || document.body).appendChild(dsq);
+    })();
+    </script>
 </body>
 </html>
