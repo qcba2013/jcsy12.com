@@ -260,7 +260,7 @@
         <div class="container">
             <h2>💬 留言板</h2>
             <p class="section-desc">欢迎同学们留言、分享想法、提出建议！</p>
-            <div id="disqus_thread_main"></div>
+            <div id="disqus_thread"></div>
         </div>
     </section>
 
@@ -287,9 +287,9 @@
                 
                 if (!isActive) {
                     const commentsDiv = card.querySelector('.teacher-comments');
-                    if (commentsDiv && commentsDiv.innerHTML === '') {
+                    if (commentsDiv && commentsDiv.innerHTML.trim() === '') {
                         const id = commentsDiv.getAttribute('data-identifier');
-                        commentsDiv.innerHTML = '<div id="disqus_thread_' + id + '"></div>';
+                        commentsDiv.innerHTML = '<div id="disqus_thread_' + id + '" data-disqus-identifier="' + id + '"></div>';
                         
                         // 加载 Disqus
                         (function() {
@@ -297,6 +297,7 @@
                             dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
                             dsq.async = true;
                             dsq.setAttribute('data-timestamp', +new Date());
+                            dsq.setAttribute('data-disqus-identifier', id);
                             commentsDiv.appendChild(dsq);
                         })();
                     }
