@@ -6,6 +6,13 @@
     <title>七年级 12 班 - 我们的班级主页</title>
     <link rel="stylesheet" href="style.css">
     <style>
+    /* 班级介绍卡片布局 - 一行 2 个 */
+    .about-content {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
     /* 折叠卡片样式 - 直接嵌入 */
     .about-card.collapsible {
         cursor: pointer;
