@@ -9,6 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 导航栏滚动效果
     addNavbarScrollEffect();
+    
+    // 可折叠卡片功能
+    initCollapsibleCards();
+    
+    console.log('🎉 网站交互功能已就绪！');
 });
 
 // 滚动动画
@@ -57,6 +62,38 @@ function addNavbarScrollEffect() {
     });
 }
 
+// 可折叠卡片功能
+function initCollapsibleCards() {
+    const collapsibleCards = document.querySelectorAll('.about-card.collapsible');
+    
+    collapsibleCards.forEach(card => {
+        const header = card.querySelector('.collapsible-header');
+        
+        // 设置鼠标样式
+        header.style.cursor = 'pointer';
+        
+        header.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // 切换当前卡片的展开/收起状态
+            const isActive = card.classList.contains('active');
+            
+            if (isActive) {
+                card.classList.remove('active');
+                console.log('折叠卡片已收起');
+            } else {
+                card.classList.add('active');
+                console.log('折叠卡片已展开');
+            }
+        });
+    });
+    
+    if (collapsibleCards.length > 0) {
+        console.log('✅ 可折叠卡片功能已加载，共', collapsibleCards.length, '个卡片');
+    }
+}
+
 // 平滑滚动到锚点
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -78,7 +115,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 document.querySelectorAll('.member-card:not(.add-member)').forEach(card => {
     card.addEventListener('click', function() {
         const name = this.querySelector('h4').textContent;
-        alert(`👋 你好！这是 ${name} 的个人页面（功能开发中...）`);
+        alert('👋 你好！这是 ' + name + ' 的个人页面（功能开发中...）');
     });
 });
 
@@ -91,27 +128,18 @@ document.querySelector('.add-member')?.addEventListener('click', function() {
 document.querySelectorAll('.photo-card').forEach(card => {
     card.addEventListener('click', function() {
         const eventName = this.querySelector('p').textContent;
-        alert(`📸 ${eventName} 照片集（功能开发中...）`);
+        alert('📸 ' + eventName + ' 照片集（功能开发中...）');
     });
 });
-
-// 欢迎消息（首次访问）
-let hasVisited = sessionStorage.getItem('hasVisited');
-if (!hasVisited) {
-    setTimeout(() => {
-        console.log('✨ 欢迎来到七年级 12 班的家园！');
-    }, 1000);
-    sessionStorage.setItem('hasVisited', 'true');
-}
 
 // 动态年份更新
 const footerYear = document.querySelector('.footer p:last-child');
 if (footerYear) {
     const currentYear = new Date().getFullYear();
-    footerYear.textContent = `七年级 12 班 © ${currentYear} - 我们的青春纪念`;
+    footerYear.textContent = '七年级 12 班 © ' + currentYear + ' - 我们的青春纪念';
 }
 
-// 添加"回到顶部"按钮（可选功能）
+// 添加"回到顶部"按钮
 function createBackToTop() {
     const btn = document.createElement('button');
     btn.innerHTML = '⬆️';
@@ -149,34 +177,4 @@ function createBackToTop() {
 // 启用回到顶部按钮
 createBackToTop();
 
-console.log('🎉 网站交互功能已就绪！');
-
-// 可折叠卡片功能
-document.addEventListener('DOMContentLoaded', function() {
-    const collapsibleCards = document.querySelectorAll('.about-card.collapsible');
-    
-    collapsibleCards.forEach(card => {
-        const header = card.querySelector('.collapsible-header');
-        
-        header.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // 切换当前卡片的展开/收起状态
-            const isActive = card.classList.contains('active');
-            
-            // 可选：是否同时关闭其他卡片（手风琴效果）
-            // 如果要手风琴效果，取消下面这行的注释
-            // collapsibleCards.forEach(c => c.classList.remove('active'));
-            
-            if (isActive) {
-                card.classList.remove('active');
-                console.log('折叠卡片已收起');
-            } else {
-                card.classList.add('active');
-                console.log('折叠卡片已展开');
-            }
-        });
-    });
-    
-    console.log('✅ 可折叠卡片功能已加载');
-});
+console.log('✅ 所有功能已加载完成');
