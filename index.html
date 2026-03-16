@@ -1,37 +1,64 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>七年级 12 班 - 我们的班级主页</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-    .about-content{display:grid!important;grid-template-columns:repeat(2,1fr)!important;gap:2rem;margin-bottom:3rem}
-    .about-card.collapsible{cursor:pointer;transition:all .3s ease}
-    .about-card.collapsible:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.15)}
-    .collapsible-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0;padding-bottom:10px;border-bottom:2px solid transparent;transition:border-color .3s ease}
-    .about-card.collapsible.active .collapsible-header{border-bottom-color:#4a90d9}
-    .toggle-icon{font-size:.8em;transition:transform .3s ease;color:#4a90d9}
-    .about-card.collapsible.active .toggle-icon{transform:rotate(180deg)}
-    .collapsible-content{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease;opacity:0}
-    .about-card.collapsible.active .collapsible-content{max-height:500px;opacity:1;padding-top:15px}
-    .collapsible-content p{margin:8px 0;color:#666}
-    .collapsible-content p strong{color:#4a90d9}
-    .collapsible-content em{display:block;margin-top:10px;font-size:.9em;color:#999}
-    .teacher-comments{margin-top:20px;padding-top:20px;border-top:2px solid #f0f0f0}
-    .dsq-embed-sprite,#dsq-embed-sprite{display:none!important}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>七年级 12 班</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.about-content{display:grid!important;grid-template-columns:repeat(2,1fr)!important;gap:2rem;margin-bottom:3rem}
+.about-card.collapsible{cursor:pointer}
+.collapsible-header{display:flex;justify-content:space-between;align-items:center}
+.toggle-icon{transition:transform .3s}
+.about-card.collapsible.active .toggle-icon{transform:rotate(180deg)}
+.collapsible-content{max-height:0;overflow:hidden;transition:max-height .4s}
+.about-card.collapsible.active .collapsible-content{max-height:500px}
+.teacher-comments{margin-top:20px;border-top:2px solid #f0f0f0;padding-top:15px}
+</style>
+<script>
+var disqus_shortname='qcba2013';
+function loadTeacherComments(div,id){
+if(!div||div.innerHTML.trim()!=='')return;
+div.innerHTML='<div id="disqus_thread_'+id+'"></div>';
+var dsq=document.createElement('script');
+dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';
+dsq.async=true;
+dsq.setAttribute('data-timestamp',+new Date());
+dsq.setAttribute('data-disqus-identifier',id);
+div.appendChild(dsq);
+}
+document.addEventListener('DOMContentLoaded',function(){
+document.querySelectorAll('.about-card.collapsible').forEach(function(card){
+var header=card.querySelector('.collapsible-header');
+header.addEventListener('click',function(){
+card.classList.toggle('active');
+if(card.classList.contains('active')){
+var div=card.querySelector('.teacher-comments');
+if(div)loadTeacherComments(div,div.getAttribute('data-id'));
+}
+});
+});
+});
+</script>
 </head>
 <body>
-    <nav class="navbar"><div class="container"><div class="logo">🏫 七年级 12 班</div><ul class="nav-links"><li><a href="#home">首页</a></li><li><a href="#about">班级介绍</a></li><li><a href="#members">同学风采</a></li><li><a href="#gallery">照片墙</a></li><li><a href="#calendar">重要日期</a></li><li><a href="#message">留言板</a></li></ul></div></nav>
-    <section id="home" class="hero"><div class="hero-content"><h1>✨ 欢迎来到七年级 12 班 ✨</h1><p class="slogan">团结 · 奋进 · 梦想 · 成长</p><a href="#about" class="btn">了解更多</a></div></section>
-    <section id="about" class="section"><div class="container"><h2>📖 班级介绍</h2><div class="about-content"><div class="about-card collapsible"><h3 class="collapsible-header">班主任 <span class="toggle-icon">▼</span></h3><div class="collapsible-content"><p><strong>姓名：</strong>（待补充）</p><p><strong>教龄：</strong>（待补充）</p><p><strong>寄语：</strong>（待补充）</p><div class="teacher-comments" data-id="homeroom"></div></div></div><div class="about-card collapsible"><h3 class="collapsible-header">语文老师 <span class="toggle-icon">▼</span></h3><div class="collapsible-content"><p><strong>姓名：</strong>（待补充）</p><p><strong>教龄：</strong>（待补充）</p><p><strong>寄语：</strong>（待补充）</p><div class="teacher-comments" data-id="chinese"></div></div></div><div class="about-card collapsible"><h3 class="collapsible-header">数学老师 <span class="toggle-icon">▼</span></h3><div class="collapsible-content"><p><strong>姓名：</strong>（待补充）</p><p><strong>教龄：</strong>（待补充）</p><p><strong>寄语：</strong>（待补充）</p><div class="teacher-comments" data-id="math"></div></div></div><div class="about-card collapsible"><h3 class="collapsible-header">英语老师 <span class="toggle-icon">▼</span></h3><div class="collapsible-content"><p><strong>姓名：</strong>（待补充）</p><p><strong>教龄：</strong>（待补充）</p><p><strong>寄语：</strong>（待补充）</p><div class="teacher-comments" data-id="english"></div></div></div></div><div class="class-intro"><h3>🌟 关于我们</h3><p>我们是充满活力和梦想的七年级 12 班！在这里，每一位同学都是独一无二的星星，我们一起学习、一起成长、一起创造美好的回忆。</p><p>无论是课堂上的认真思考，还是操场上的挥洒汗水，亦或是课间的欢声笑语，都是我们青春最珍贵的片段。</p></div></div></section>
-    <section id="members" class="section section-alt"><div class="container"><h2>👫 同学风采</h2><p class="section-desc">点击头像可以查看每位同学的详细介绍（功能待添加）</p><div class="members-grid"><div class="member-card"><div class="avatar">👦</div><h4>魏千辰</h4><p class="role">网站创建者</p><p class="intro">热爱科技，喜欢探索新事物</p></div><div class="member-card"><div class="avatar">👧</div><h4>同学 A</h4><p class="role">待定</p><p class="intro">欢迎补充信息</p></div><div class="member-card"><div class="avatar">👦</div><h4>同学 B</h4><p class="role">待定</p><p class="intro">欢迎补充信息</p></div><div class="member-card"><div class="avatar">👧</div><h4>同学 C</h4><p class="role">待定</p><p class="intro">欢迎补充信息</p></div><div class="member-card add-member"><div class="avatar">➕</div><h4>添加同学</h4><p class="intro">联系管理员添加</p></div></div></div></section>
-    <section id="gallery" class="section"><div class="container"><h2>📸 照片墙</h2><p class="section-desc">记录我们的美好时光</p><div class="gallery-grid"><div class="photo-card"><div class="photo-placeholder">🏃</div><p>运动会</p></div><div class="photo-card"><div class="photo-placeholder">🚌</div><p>春游活动</p></div><div class="photo-card"><div class="photo-placeholder">🎤</div><p>文艺汇演</p></div><div class="photo-card"><div class="photo-placeholder">📚</div><p>课堂瞬间</p></div><div class="photo-card"><div class="photo-placeholder">🎉</div><p>班级聚会</p></div><div class="photo-card"><div class="photo-placeholder">🏆</div><p>荣誉时刻</p></div></div></div></section>
-    <section id="calendar" class="section section-alt"><div class="container"><h2>📅 重要日期</h2><div class="calendar-list"><div class="calendar-item"><div class="date-badge"><span class="day">--</span><span class="month">--</span></div><div class="event-info"><h4>待添加</h4><p>欢迎添加班级重要日期</p></div></div><div class="calendar-item"><div class="date-badge"><span class="day">--</span><span class="month">--</span></div><div class="event-info"><h4>待添加</h4><p>比如：期中考试、运动会、春游等</p></div></div></div></div></section>
-    <section id="message" class="section"><div class="container"><h2>💬 留言板</h2><p class="section-desc">欢迎同学们留言、分享想法、提出建议！</p><div id="disqus_thread"></div></div></section>
-    <footer class="footer"><div class="container"><p>🦐 由 小虾 AI 助手 协助创建</p><p>七年级 12 班 © 2026 - 我们的青春纪念</p></div></footer>
-    <script>var disqus_shortname='qcba2013';document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.about-card.collapsible').forEach(function(card){card.querySelector('.collapsible-header').addEventListener('click',function(){card.classList.toggle('active');if(!card.classList.contains('active'))return;var div=card.querySelector('.teacher-comments');if(div&&div.innerHTML.trim()===''){var id=div.getAttribute('data-id');div.innerHTML='<div id="disqus_thread_'+id+'"></div>';var dsq=document.createElement('script');dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';dsq.async=true;dsq.setAttribute('data-timestamp',+new Date());dsq.setAttribute('data-disqus-identifier',id);div.appendChild(dsq);}});});});</script>
-    <script>(function(){var dsq=document.createElement('script');dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';dsq.async=true;dsq.setAttribute('data-timestamp',+new Date());(document.head||document.body).appendChild(dsq);})();</script>
+<nav class="navbar"><div class="container"><div class="logo">🏫七年级 12 班</div></div></nav>
+<section id="about" class="section"><div class="container"><h2>📖班级介绍</h2>
+<div class="about-content">
+<div class="about-card collapsible"><h3 class="collapsible-header">班主任<span class="toggle-icon">▼</span></h3><div class="collapsible-content"><p>姓名：（待补充）</p><div class="teacher-comments" data-id="homeroom"></div></div></div>
+<div class="about-card collapsible"><h3 class="collapsible-header">语文老师<span class="toggle-icon">▼</span></h3><div class="collapsible-content"><p>姓名：（待补充）</p><div class="teacher-comments" data-id="chinese"></div></div></div>
+<div class="about-card collapsible"><h3 class="collapsible-header">数学老师<span class="toggle-icon">▼</span></h3><div class="collapsible-content"><p>姓名：（待补充）</p><div class="teacher-comments" data-id="math"></div></div></div>
+<div class="about-card collapsible"><h3 class="collapsible-header">英语老师<span class="toggle-icon">▼</span></h3><div class="collapsible-content"><p>姓名：（待补充）</p><div class="teacher-comments" data-id="english"></div></div></div>
+</div></div></section>
+<section id="message" class="section"><div class="container"><h2>💬留言板</h2><div id="disqus_thread"></div></div></section>
+<script>
+(function(){
+var dsq=document.createElement('script');
+dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';
+dsq.async=true;
+dsq.setAttribute('data-timestamp',+new Date());
+(document.head||document.body).appendChild(dsq);
+})();
+</script>
 </body>
 </html>
