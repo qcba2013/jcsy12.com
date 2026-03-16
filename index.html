@@ -276,16 +276,16 @@
 
     <!-- 折叠卡片 JavaScript - 直接嵌入 -->
     <script>
+    // 全局 Disqus 配置
+    var disqus_shortname = 'qcba2013';
+    
     document.addEventListener('DOMContentLoaded', function() {
         console.log('🦐 七年级 12 班网站已加载！');
         
         const collapsibleCards = document.querySelectorAll('.about-card.collapsible');
         console.log('找到', collapsibleCards.length, '个折叠卡片');
         
-        // 记录每个评论区是否已加载
-        const loadedComments = {};
-        
-        collapsibleCards.forEach(function(card) {
+        collapsibleCards.forEach(function(card, index) {
             const header = card.querySelector('.collapsible-header');
             header.style.cursor = 'pointer';
             
@@ -300,11 +300,28 @@
                     card.classList.add('active');
                     console.log('折叠卡片已展开');
                     
-                    // 加载 Disqus 评论区
+                    // 加载该卡片的评论区
                     const commentsDiv = card.querySelector('.teacher-comments');
-                    if (commentsDiv && !loadedComments[commentsDiv.dataset.disqusIdentifier]) {
-                        loadDisqus(commentsDiv.dataset.disqusIdentifier, commentsDiv);
-                        loadedComments[commentsDiv.dataset.disqusIdentifier] = true;
+                    if (commentsDiv && commentsDiv.innerHTML.trim() === '') {
+                        const identifier = commentsDiv.dataset.disqusIdentifier;
+                        const teacherName = header.textContent.replace('▼', '').trim();
+                        
+                        // 创建评论区 HTML（使用固定 ID）
+                        commentsDiv.innerHTML = '<div id="disqus_thread"></div>';
+                        
+                        // 配置并加载 Disqus
+                        (function() {
+                            var dsq = document.createElement('script');
+                            dsq.type = 'text/javascript';
+                            dsq.async = true;
+                            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                            dsq.setAttribute('data-timestamp', +new Date());
+                            dsq.setAttribute('data-identifier', identifier);
+                            dsq.setAttribute('data-url', window.location.href + '?thread=' + identifier);
+                            commentsDiv.appendChild(dsq);
+                        })();
+                        
+                        console.log('已加载评论区：' + teacherName);
                     }
                 }
             });
@@ -312,43 +329,6 @@
         
         console.log('✅ 折叠卡片功能已加载');
     });
-    
-    // 加载 Disqus 评论区
-    function loadDisqus(identifier, element) {
-        if (window.DISQUS) {
-            // Disqus 已加载，重置评论
-            window.DISQUS.reset({
-                reload: true,
-                config: function() {
-                    this.page.identifier = identifier;
-                    this.page.url = window.location.href + '?thread=' + identifier;
-                }
-            });
-        } else {
-            // 首次加载 Disqus
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript';
-            dsq.async = true;
-            dsq.src = 'https://qcba2013.disqus.com/embed.js';
-            dsq.setAttribute('data-timestamp', +new Date());
-            element.appendChild(dsq);
-        }
-    }
     </script>
-    
-    <!-- Disqus 评论系统 -->
-    <script>
-    var disqus_config = function () {
-        this.page.url = window.location.href;
-        this.page.identifier = window.location.pathname;
-    };
-    (function() {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://qcba2013.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-    </script>
-    <noscript>请启用 JavaScript 以查看评论区。</noscript>
 </body>
 </html>
