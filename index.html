@@ -37,23 +37,39 @@ var disqus_config = function() {
 
 <!-- 老师评论区加载函数 -->
 <script>
-var loadedComments = {};
-function loadDisqus(identifier) {
-    if (loadedComments[identifier]) return;
-    loadedComments[identifier] = true;
-    
-    var div = document.getElementById('disqus_thread_' + identifier);
+var modalDisqusLoaded = null;
+
+function loadDisqusModal(identifier) {
+    var div = document.getElementById('disqus_thread_modal');
     if (!div) return;
     
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = 'https://qcba2013.disqus.com/embed.js';
-    dsq.setAttribute('data-timestamp', +new Date());
-    dsq.setAttribute('data-disqus-identifier', identifier);
-    div.appendChild(dsq);
+    // 清空容器
+    div.innerHTML = '';
     
-    console.log('Loaded comments for: ' + identifier);
+    // 配置 Disqus
+    window.disqus_config = function() {
+        this.page.url = window.location.href;
+        this.page.identifier = identifier;
+    };
+    
+    // 如果已经加载过，需要重置 DISQUS 对象
+    if (window.DISQUS) {
+        window.DISQUS.reset({
+            reload: true,
+            config: window.disqus_config
+        });
+    } else {
+        // 首次加载
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = 'https://qcba2013.disqus.com/embed.js';
+        dsq.setAttribute('data-timestamp', +new Date());
+        div.appendChild(dsq);
+    }
+    
+    modalDisqusLoaded = identifier;
+    console.log('加载评论区:', identifier);
 }
 </script>
 <script src="js/main.js"></script>

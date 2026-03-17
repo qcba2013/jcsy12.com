@@ -97,24 +97,8 @@ function closeTeacherModal() {
     console.log('关闭模态框');
 }
 
-// 加载模态框内的 Disqus
-function loadDisqusModal(identifier) {
-    if (modalCommentsLoaded) return;
-    modalCommentsLoaded = true;
-    
-    var div = document.getElementById('disqus_thread_modal');
-    if (!div) return;
-    
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = 'https://qcba2013.disqus.com/embed.js';
-    dsq.setAttribute('data-timestamp', +new Date());
-    dsq.setAttribute('data-disqus-identifier', identifier);
-    div.appendChild(dsq);
-    
-    console.log('加载评论区:', identifier);
-}
+// 模态框打开时，调用 HTML 中定义的 loadDisqusModal 函数
+// 该函数已在 index.html 中定义
 
 // 键盘关闭模态框
 document.addEventListener('keydown', function(e) {
