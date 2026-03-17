@@ -60,9 +60,6 @@ function addNavbarScrollEffect() {
 }
 
 // 模态框功能
-let currentModalIdentifier = '';
-let modalCommentsLoaded = false;
-
 function openTeacherModal(identifier, title) {
     const modal = document.getElementById('teacherModal');
     const modalTitle = document.getElementById('modalTitle');
@@ -72,19 +69,12 @@ function openTeacherModal(identifier, title) {
     modalTitle.textContent = title + '介绍';
     teacherName.textContent = '姓名：（待补充）';
     
-    // 清空之前的评论区
-    const disqusThread = document.getElementById('disqus_thread_modal');
-    disqusThread.innerHTML = '';
-    modalCommentsLoaded = false;
-    
     // 显示模态框
     modal.classList.add('active');
-    document.body.style.overflow = 'hidden'; // 禁止背景滚动
+    document.body.style.overflow = 'hidden';
     
-    // 加载评论区
-    setTimeout(() => {
-        loadDisqusModal(identifier);
-    }, 300);
+    // 显示对应老师的评论区
+    showTeacherComments(identifier);
     
     console.log('打开模态框:', title);
 }
@@ -92,13 +82,10 @@ function openTeacherModal(identifier, title) {
 function closeTeacherModal() {
     const modal = document.getElementById('teacherModal');
     modal.classList.remove('active');
-    document.body.style.overflow = ''; // 恢复滚动
+    document.body.style.overflow = '';
     
     console.log('关闭模态框');
 }
-
-// 模态框打开时，调用 HTML 中定义的 loadDisqusModal 函数
-// 该函数已在 index.html 中定义
 
 // 键盘关闭模态框
 document.addEventListener('keydown', function(e) {
