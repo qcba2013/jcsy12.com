@@ -10,9 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // 导航栏滚动效果
     addNavbarScrollEffect();
     
-    // 可折叠卡片功能
-    initCollapsibleCards();
-    
     console.log('🎉 网站交互功能已就绪！');
 });
 
@@ -62,37 +59,69 @@ function addNavbarScrollEffect() {
     });
 }
 
-// 可折叠卡片功能
-function initCollapsibleCards() {
-    const collapsibleCards = document.querySelectorAll('.about-card.collapsible');
+// 模态框功能
+let currentModalIdentifier = '';
+let modalCommentsLoaded = false;
+
+function openTeacherModal(identifier, title) {
+    const modal = document.getElementById('teacherModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const teacherName = document.getElementById('teacherName');
     
-    collapsibleCards.forEach(card => {
-        const header = card.querySelector('.collapsible-header');
-        
-        // 设置鼠标样式
-        header.style.cursor = 'pointer';
-        
-        header.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // 切换当前卡片的展开/收起状态
-            const isActive = card.classList.contains('active');
-            
-            if (isActive) {
-                card.classList.remove('active');
-                console.log('折叠卡片已收起');
-            } else {
-                card.classList.add('active');
-                console.log('折叠卡片已展开');
-            }
-        });
-    });
+    // 设置标题
+    modalTitle.textContent = title + '介绍';
+    teacherName.textContent = '姓名：（待补充）';
     
-    if (collapsibleCards.length > 0) {
-        console.log('✅ 可折叠卡片功能已加载，共', collapsibleCards.length, '个卡片');
-    }
+    // 清空之前的评论区
+    const disqusThread = document.getElementById('disqus_thread_modal');
+    disqusThread.innerHTML = '';
+    modalCommentsLoaded = false;
+    
+    // 显示模态框
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // 禁止背景滚动
+    
+    // 加载评论区
+    setTimeout(() => {
+        loadDisqusModal(identifier);
+    }, 300);
+    
+    console.log('打开模态框:', title);
 }
+
+function closeTeacherModal() {
+    const modal = document.getElementById('teacherModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = ''; // 恢复滚动
+    
+    console.log('关闭模态框');
+}
+
+// 加载模态框内的 Disqus
+function loadDisqusModal(identifier) {
+    if (modalCommentsLoaded) return;
+    modalCommentsLoaded = true;
+    
+    var div = document.getElementById('disqus_thread_modal');
+    if (!div) return;
+    
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = 'https://qcba2013.disqus.com/embed.js';
+    dsq.setAttribute('data-timestamp', +new Date());
+    dsq.setAttribute('data-disqus-identifier', identifier);
+    div.appendChild(dsq);
+    
+    console.log('加载评论区:', identifier);
+}
+
+// 键盘关闭模态框
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeTeacherModal();
+    }
+});
 
 // 平滑滚动到锚点
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {

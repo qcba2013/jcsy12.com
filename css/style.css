@@ -134,31 +134,161 @@ body {
     margin-bottom: 3rem;
 }
 
-/* 班级介绍卡片 */
+/* 班级介绍 - 老师按钮 */
 .about-content {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.about-card {
+.teacher-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    border: none;
+    padding: 2rem 1.5rem;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.teacher-btn:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: var(--shadow-hover);
+    background: linear-gradient(135deg, #5a9fe8, #7bcf85);
+}
+
+.btn-icon {
+    font-size: 3rem;
+}
+
+/* 模态框样式 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: relative;
     background: var(--white);
+    border-radius: 20px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease;
+    z-index: 2001;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2.5rem;
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s;
+    z-index: 2002;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: var(--primary-color);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    padding: 2rem;
+    text-align: center;
+}
+
+.modal-header h2 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.teacher-info {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
     padding: 2rem;
     border-radius: 15px;
-    box-shadow: var(--shadow);
-    text-align: center;
-    transition: transform 0.3s;
+    margin-bottom: 2rem;
 }
 
-.about-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-hover);
-}
-
-.about-card h3 {
+.teacher-name {
+    font-size: 1.5rem;
     color: var(--primary-color);
+    font-weight: bold;
     margin-bottom: 1rem;
+}
+
+.teacher-desc,
+.teacher-message {
+    color: var(--text-light);
+    line-height: 1.8;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+}
+
+.teacher-comments-section h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .class-intro {
@@ -358,75 +488,24 @@ body {
     .nav-links {
         display: none;
     }
+    
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.5rem;
+    }
 }
 
 /* 平滑滚动 */
 html {
     scroll-behavior: smooth;
-}
-
-/* 可折叠卡片样式 */
-.about-card.collapsible {
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.about-card.collapsible:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.collapsible-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0;
-    padding-bottom: 10px;
-    border-bottom: 2px solid transparent;
-    transition: border-color 0.3s ease;
-}
-
-.about-card.collapsible.active .collapsible-header {
-    border-bottom-color: var(--primary-color);
-}
-
-.toggle-icon {
-    font-size: 0.8em;
-    transition: transform 0.3s ease;
-    color: var(--primary-color);
-}
-
-.about-card.collapsible.active .toggle-icon {
-    transform: rotate(180deg);
-}
-
-.collapsible-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.4s ease;
-    opacity: 0;
-}
-
-.about-card.collapsible.active .collapsible-content {
-    max-height: 500px;
-    opacity: 1;
-    padding-top: 15px;
-}
-
-.collapsible-content p {
-    margin: 8px 0;
-    color: var(--text-light);
-}
-
-.collapsible-content p strong {
-    color: var(--primary-color);
-}
-
-.collapsible-content em {
-    display: block;
-    margin-top: 10px;
-    font-size: 0.9em;
-    color: #999;
 }
 
 /* 留言板提示框 */
