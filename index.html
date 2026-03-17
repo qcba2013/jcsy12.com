@@ -12,7 +12,7 @@
 <section id="about" class="section"><div class="container"><h2>📖班级介绍</h2><div class="about-content"><button class="teacher-btn" onclick="openTeacherModal('homeroom','班主任')"><span class="btn-icon">👨‍🏫</span><span>班主任</span></button><button class="teacher-btn" onclick="openTeacherModal('chinese','语文老师')"><span class="btn-icon">📖</span><span>语文老师</span></button><button class="teacher-btn" onclick="openTeacherModal('math','数学老师')"><span class="btn-icon">📐</span><span>数学老师</span></button><button class="teacher-btn" onclick="openTeacherModal('english','英语老师')"><span class="btn-icon">🔤</span><span>英语老师</span></button></div><div class="class-intro"><h3>🌟关于我们</h3><p>我们是充满活力和梦想的七年级 12 班！在这里，每一位同学都是独一无二的星星，我们一起学习、一起成长、一起创造美好的回忆。</p><p>无论是课堂上的认真思考，还是操场上的挥洒汗水，亦或是课间的欢声笑语，都是我们青春最珍贵的片段。</p></div></div></section>
 
 <!-- 老师介绍模态框 -->
-<div id="teacherModal" class="modal"><div class="modal-overlay" onclick="closeTeacherModal()"></div><div class="modal-content"><button class="modal-close" onclick="closeTeacherModal()">×</button><div class="modal-header"><h2 id="modalTitle">老师介绍</h2></div><div class="modal-body"><div class="teacher-info"><p class="teacher-name" id="teacherName">姓名：（待补充）</p><p class="teacher-desc">简介：（待补充）</p><p class="teacher-message">寄语：（待补充）</p></div><div class="teacher-comments-section"><h3>💬 评论区</h3></div></div></div></div>
+<div id="teacherModal" class="modal" style="display:none;"><div class="modal-overlay" onclick="closeTeacherModal()"></div><div class="modal-content"><button class="modal-close" onclick="closeTeacherModal()">×</button><div class="modal-header"><h2 id="modalTitle">老师介绍</h2></div><div class="modal-body"><div class="teacher-info"><p class="teacher-name" id="teacherName">姓名：（待补充）</p><p class="teacher-desc">简介：（待补充）</p><p class="teacher-message">寄语：（待补充）</p></div><div class="teacher-comments-section"><h3>💬 评论区</h3></div></div></div></div>
 <section id="members" class="section section-alt"><div class="container"><h2>👫同学风采</h2><p class="section-desc">点击头像可以查看每位同学的详细介绍（功能待添加）</p><div class="members-grid"><div class="member-card"><div class="avatar">👦</div><h4>魏千辰</h4><p class="role">网站创建者</p><p class="intro">热爱科技，喜欢探索新事物</p></div><div class="member-card"><div class="avatar">👧</div><h4>同学 A</h4><p class="role">待定</p><p class="intro">欢迎补充信息</p></div><div class="member-card"><div class="avatar">👦</div><h4>同学 B</h4><p class="role">待定</p><p class="intro">欢迎补充信息</p></div><div class="member-card"><div class="avatar">👧</div><h4>同学 C</h4><p class="role">待定</p><p class="intro">欢迎补充信息</p></div><div class="member-card add-member"><div class="avatar">➕</div><h4>添加同学</h4><p class="intro">联系管理员添加</p></div></div></div></section>
 <section id="gallery" class="section"><div class="container"><h2>📸照片墙</h2><p class="section-desc">记录我们的美好时光</p><div class="gallery-grid"><div class="photo-card"><div class="photo-placeholder">🏃</div><p>运动会</p></div><div class="photo-card"><div class="photo-placeholder">🚌</div><p>春游活动</p></div><div class="photo-card"><div class="photo-placeholder">🎤</div><p>文艺汇演</p></div><div class="photo-card"><div class="photo-placeholder">📚</div><p>课堂瞬间</p></div><div class="photo-card"><div class="photo-placeholder">🎉</div><p>班级聚会</p></div><div class="photo-card"><div class="photo-placeholder">🏆</div><p>荣誉时刻</p></div></div></div></section>
 <section id="calendar" class="section section-alt"><div class="container"><h2>📅重要日期</h2><div class="calendar-list"><div class="calendar-item"><div class="date-badge"><span class="day">--</span><span class="month">--</span></div><div class="event-info"><h4>待添加</h4><p>欢迎添加班级重要日期</p></div></div><div class="calendar-item"><div class="date-badge"><span class="day">--</span><span class="month">--</span></div><div class="event-info"><h4>待添加</h4><p>比如：期中考试、运动会、春游等</p></div></div></div></div></section>
@@ -107,22 +107,47 @@ var disqus_config_english = function() {
 </script>
 
 <script>
-function showTeacherComments(identifier) {
+// 模态框函数 - 直接写在这里确保能调用
+function openTeacherModal(identifier, title) {
+    console.log('点击按钮:', title, identifier);
+    var modal = document.getElementById('teacherModal');
+    var modalTitle = document.getElementById('modalTitle');
+    var teacherName = document.getElementById('teacherName');
+    
+    modalTitle.innerText = title + '介绍';
+    teacherName.innerText = '姓名：（待补充）';
+    
     // 隐藏所有评论区
     document.getElementById('disqus_thread_homeroom').style.display = 'none';
     document.getElementById('disqus_thread_chinese').style.display = 'none';
     document.getElementById('disqus_thread_math').style.display = 'none';
     document.getElementById('disqus_thread_english').style.display = 'none';
     
-    // 显示当前老师的评论区
+    // 显示当前老师评论区并移到模态框
     var targetDiv = document.getElementById('disqus_thread_' + identifier);
     targetDiv.style.display = 'block';
-    
-    // 放到模态框里
     var modalContainer = document.querySelector('.teacher-comments-section');
     modalContainer.appendChild(targetDiv);
     
-    console.log('显示评论区:', identifier);
+    // 显示模态框
+    modal.style.display = 'flex';
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    console.log('模态框已打开');
+}
+
+function closeTeacherModal() {
+    var modal = document.getElementById('teacherModal');
+    modal.style.display = 'none';
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+    console.log('模态框已关闭');
+}
+
+function showTeacherComments(identifier) {
+    // 这个函数保留兼容
+    openTeacherModal(identifier, '');
 }
 </script>
 <script src="js/main.js"></script>
