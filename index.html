@@ -85,6 +85,7 @@
 .comment-item {
     padding: 15px;
     border-bottom: 1px solid #eee;
+    position: relative;
 }
 
 .comment-author {
@@ -100,6 +101,26 @@
 .comment-time {
     font-size: 12px;
     color: #999;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.comment-actions {
+    display: inline-block;
+}
+
+.comment-withdraw {
+    color: #ff6b6b;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 0;
+    text-decoration: underline;
+}
+
+.comment-withdraw:hover {
+    color: #e74c3c;
 }
 </style>
 </head>
@@ -188,10 +209,16 @@ function loadCommentsForTeacher(identifier) {
     list.innerHTML = '';
     
     var comments = commentsData[identifier] || [];
-    comments.forEach(function(comment) {
+    comments.forEach(function(comment, index) {
         var item = document.createElement('div');
         item.className = 'comment-item';
-        item.innerHTML = '<div class="comment-author">' + comment.author + '</div><div class="comment-text">' + comment.text + '</div><div class="comment-time">' + comment.time + '</div>';
+        item.innerHTML = 
+            '<div class="comment-author">' + comment.author + '</div>' +
+            '<div class="comment-text">' + comment.text + '</div>' +
+            '<div class="comment-time">' + comment.time + '</div>' +
+            '<div class="comment-actions">' +
+                '<button class="comment-withdraw" onclick="withdrawComment(\'' + identifier + '\', ' + index + ')">撤回</button>' +
+            '</div>';
         list.appendChild(item);
     });
 }
@@ -205,11 +232,11 @@ function addComment() {
         return;
     }
     
-    // 创建评论对象
+    // 创建评论对象（包含完整时间戳用于撤回）
     var comment = {
         author: '访客',
         text: text,
-        time: new Date().toLocaleDateString()
+        time: new Date().toLocaleString()
     };
     
     // 保存到当前老师的评论数组
@@ -222,6 +249,16 @@ function addComment() {
     loadCommentsForTeacher(currentTeacher);
     
     input.value = '';
+}
+
+// 撤回评论
+function withdrawComment(teacherId, commentIndex) {
+    if (confirm('确定要撤回这条评论吗？')) {
+        // 从数组中删除指定索引的评论
+        commentsData[teacherId].splice(commentIndex, 1);
+        // 重新加载评论列表
+        loadCommentsForTeacher(teacherId);
+    }
 }
 </script>
 
