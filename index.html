@@ -65,7 +65,7 @@
         }
 
         .disqus-container.active {
-            display: block;
+            display: block !important;
         }
     </style>
 </head>
@@ -333,45 +333,49 @@ document.addEventListener('keydown', function(e) {
         closeTeacherModal();
     }
 });
-</script>
 
-<!-- 四位老师的 Disqus 评论区（页面加载时初始化） -->
-<script>
-// 班主任
-(function() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://qcba2013.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    s.setAttribute('data-disqus-identifier', 'teacher-homeroom');
-    d.getElementById('disqus_thread_homeroom').appendChild(s);
-})();
+// 页面加载完成后初始化所有 Disqus 评论区
+document.addEventListener('DOMContentLoaded', function() {
+    // 班主任
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://qcba2013.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        s.setAttribute('data-disqus-identifier', 'teacher-homeroom');
+        var thread = d.getElementById('disqus_thread_homeroom');
+        if (thread) thread.appendChild(s);
+    })();
 
-// 语文老师
-(function() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://qcba2013.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    s.setAttribute('data-disqus-identifier', 'teacher-chinese');
-    d.getElementById('disqus_thread_chinese').appendChild(s);
-})();
+    // 语文老师
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://qcba2013.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        s.setAttribute('data-disqus-identifier', 'teacher-chinese');
+        var thread = d.getElementById('disqus_thread_chinese');
+        if (thread) thread.appendChild(s);
+    })();
 
-// 数学老师
-(function() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://qcba2013.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    s.setAttribute('data-disqus-identifier', 'teacher-math');
-    d.getElementById('disqus_thread_math').appendChild(s);
-})();
+    // 数学老师
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://qcba2013.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        s.setAttribute('data-disqus-identifier', 'teacher-math');
+        var thread = d.getElementById('disqus_thread_math');
+        if (thread) thread.appendChild(s);
+    })();
 
-// 英语老师
-(function() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://qcba2013.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    s.setAttribute('data-disqus-identifier', 'teacher-english');
-    d.getElementById('disqus_thread_english').appendChild(s);
-})();
+    // 英语老师
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://qcba2013.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        s.setAttribute('data-disqus-identifier', 'teacher-english');
+        var thread = d.getElementById('disqus_thread_english');
+        if (thread) thread.appendChild(s);
+    })();
+});
 </script>
 
 </body>
