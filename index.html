@@ -1,146 +1,170 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>七年级 12 班 - 我们的班级主页</title>
-<link rel="stylesheet" href="css/style.css">
-<style>
-/* 模态框样式 - 完美居中 */
-#teacherModal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.6);
-    z-index: 2000;
-    justify-content: center;
-    align-items: center;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>七年级 12 班 - 我们的班级主页</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 模态框样式 - 完美居中 */
+        #teacherModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
 
-#teacherModal.active {
-    display: flex;
-}
+        #teacherModal.active {
+            display: flex;
+        }
 
-.modal-content {
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 700px;
-    max-height: 85vh;
-    overflow-y: auto;
-    position: relative;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-}
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
 
-.modal-close {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 2.5rem;
-    background: none;
-    border: none;
-    color: #999;
-    cursor: pointer;
-    transition: color 0.3s;
-    z-index: 2002;
-    line-height: 1;
-}
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2.5rem;
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s;
+            z-index: 2002;
+            line-height: 1;
+        }
 
-.modal-close:hover {
-    color: #4a90d9;
-}
+        .modal-close:hover {
+            color: #4a90d9;
+        }
 
-.teacher-comments-section {
-    margin-top: 25px;
-    padding-top: 25px;
-    border-top: 2px solid #f0f0f0;
-}
+        .teacher-comments-section {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 2px solid #f0f0f0;
+        }
 
-/* 评论区通用样式 */
-.comment-box textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    resize: vertical;
-    min-height: 80px;
-    font-family: inherit;
-}
+        /* 评论区通用样式 */
+        .comment-box textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+        }
 
-.comment-box button {
-    margin-top: 12px;
-    padding: 10px 24px;
-    background: linear-gradient(135deg, #4a90d9, #67b26f);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: transform 0.2s;
-}
+        .comment-box button {
+            margin-top: 12px;
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #4a90d9, #67b26f);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
 
-.comment-box button:hover {
-    transform: translateY(-2px);
-}
+        .comment-box button:hover {
+            transform: translateY(-2px);
+        }
 
-.comment-list {
-    margin-top: 20px;
-}
+        .comment-list {
+            margin-top: 20px;
+        }
 
-.comment-item {
-    padding: 16px;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
+        .comment-item {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
 
-.comment-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-}
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
 
-.comment-author {
-    font-weight: bold;
-    color: #4a90d9;
-}
+        .comment-author {
+            font-weight: bold;
+            color: #4a90d9;
+        }
 
-.comment-text {
-    color: #555;
-    margin: 8px 0;
-    line-height: 1.5;
-}
+        .comment-text {
+            color: #555;
+            margin: 8px 0;
+            line-height: 1.5;
+        }
 
-.comment-time {
-    font-size: 13px;
-    color: #888;
-}
+        .comment-time {
+            font-size: 13px;
+            color: #888;
+        }
 
-.comment-delete {
-    background: none;
-    border: 1px solid #ff6b6b;
-    color: #ff6b6b;
-    cursor: pointer;
-    font-size: 12px;
-    padding: 4px 8px;
-    border-radius: 4px;
-    margin-left: 10px;
-    transition: all 0.2s;
-}
+        .comment-delete {
+            background: none;
+            border: 1px solid #ff6b6b;
+            color: #ff6b6b;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-left: 10px;
+            transition: all 0.2s;
+        }
 
-.comment-delete:hover {
-    background: #ff6b6b;
-    color: white;
-}
+        .comment-delete:hover {
+            background: #ff6b6b;
+            color: white;
+        }
 
-/* 主页面样式保持不变 */
-</style>
+        /* 兔小巢反馈按钮样式 */
+        .txc-feedback-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #00c853, #64dd17);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 200, 83, 0.3);
+            transition: all 0.3s;
+            margin: 20px 0;
+        }
+
+        .txc-feedback-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 200, 83, 0.4);
+        }
+
+        .txc-feedback-btn::before {
+            content: "💬 ";
+        }
+
+        /* 主页面样式保持不变 */
+    </style>
 </head>
 <body>
 
@@ -194,20 +218,128 @@
     </div>
 </section>
 
-<!-- 同学风采、照片墙等其他部分保持不变 -->
+<!-- 同学风采 -->
+<section id="members" class="section">
+    <div class="container">
+        <h2>同学风采</h2>
+        <p class="section-desc">点击头像可以查看每位同学的详细介绍（功能待添加）</p>
+        
+        <div class="members-grid">
+            <div class="member-card">
+                <div class="avatar">👦</div>
+                <h4>魏千辰</h4>
+                <p class="role">网站创建者</p>
+                <p class="intro">热爱科技，喜欢探索新事物</p>
+            </div>
+            <div class="member-card">
+                <div class="avatar">👧</div>
+                <h4>同学 A</h4>
+                <p class="role">待定</p>
+                <p class="intro">欢迎补充信息</p>
+            </div>
+            <div class="member-card">
+                <div class="avatar">👦</div>
+                <h4>同学 B</h4>
+                <p class="role">待定</p>
+                <p class="intro">欢迎补充信息</p>
+            </div>
+            <div class="member-card">
+                <div class="avatar">👧</div>
+                <h4>同学 C</h4>
+                <p class="role">待定</p>
+                <p class="intro">欢迎补充信息</p>
+            </div>
+            <div class="member-card add-member">
+                <div class="avatar">➕</div>
+                <h4>添加同学</h4>
+                <p class="intro">联系管理员添加</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 照片墙 -->
+<section id="gallery" class="section section-alt">
+    <div class="container">
+        <h2>照片墙</h2>
+        <p class="section-desc">记录我们的美好时光</p>
+        
+        <div class="gallery-grid">
+            <div class="photo-card">
+                <div class="photo-placeholder">🏃</div>
+                <p>运动会</p>
+            </div>
+            <div class="photo-card">
+                <div class="photo-placeholder">🚌</div>
+                <p>春游活动</p>
+            </div>
+            <div class="photo-card">
+                <div class="photo-placeholder">🎤</div>
+                <p>文艺汇演</p>
+            </div>
+            <div class="photo-card">
+                <div class="photo-placeholder">📚</div>
+                <p>课堂瞬间</p>
+            </div>
+            <div class="photo-card">
+                <div class="photo-placeholder">🎉</div>
+                <p>班级聚会</p>
+            </div>
+            <div class="photo-card">
+                <div class="photo-placeholder">🏆</div>
+                <p>荣誉时刻</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 重要日期 -->
+<section id="calendar" class="section">
+    <div class="container">
+        <h2>重要日期</h2>
+        <p class="section-desc">班级重要活动和考试安排</p>
+        
+        <div class="calendar-list">
+            <div class="calendar-item">
+                <div class="date-badge">
+                    <span class="day">--</span>
+                    <span class="month">--</span>
+                </div>
+                <div class="event-info">
+                    <h4>待添加</h4>
+                    <p>欢迎添加班级重要日期</p>
+                </div>
+            </div>
+            <div class="calendar-item">
+                <div class="date-badge">
+                    <span class="day">--</span>
+                    <span class="month">--</span>
+                </div>
+                <div class="event-info">
+                    <h4>待添加</h4>
+                    <p>比如：期中考试、运动会、春游等</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- 留言板 -->
-<section id="message" class="section">
+<section id="message" class="section section-alt">
     <div class="container">
         <h2>💬 留言板</h2>
         <p class="section-desc">欢迎同学们留言、分享想法、提出建议！</p>
         
-        <!-- 留言板评论区 -->
-        <div class="comment-box">
-            <textarea id="mainCommentInput" placeholder="写下你的留言..."></textarea>
-            <button onclick="addMainComment()">发表留言</button>
+        <!-- 兔小巢反馈按钮 -->
+        <div style="text-align: center; padding: 30px 0;">
+            <a href="https://support.qq.com/product/799644" target="_blank" class="txc-feedback-btn">
+                发表留言
+            </a>
+            <p style="color: #666; margin-top: 15px; font-size: 14px;">
+                💡 点击按钮，用 QQ 或微信登录后即可留言<br>
+                所有人都能看到彼此的留言哦！
+            </p>
         </div>
-        <div id="mainCommentList" class="comment-list"></div>
     </div>
 </section>
 
@@ -230,28 +362,30 @@
     </div>
 </div>
 
-<script>
-// 评论数据存储（使用 localStorage 持久化）
-var commentsData = JSON.parse(localStorage.getItem('commentsData') || '{"homeroom":[],"chinese":[],"math":[],"english":[],"main":[]}');
+<footer class="footer">
+    <div class="container">
+        <p>🦐由 小虾 AI 助手 协助创建</p>
+        <p>七年级 12 班 © 2026 - 我们的青春纪念</p>
+    </div>
+</footer>
 
-// 当前打开的老师
+<script>
+// 老师评论区仍然使用本地存储（因为每个老师独立）
+var commentsData = JSON.parse(localStorage.getItem('commentsData') || '{"homeroom":[],"chinese":[],"math":[],"english":[]}');
+
 var currentTeacher = null;
 
 // 打开老师模态框
 function openTeacherModal(identifier, title) {
     currentTeacher = identifier;
+    document.getElementById('teacherModalTitle').textContent = title + '介绍';
+    document.getElementById('teacherInfo').textContent = '姓名：（待补充）\n简介：（待补充）\n寄语：（待补充）';
     
-    // 设置标题和信息（待填写具体内容）
-    document.getElementById('teacherModalTitle').textContent = title;
-    document.getElementById('teacherInfo').textContent = '这里是' + title + '的详细介绍，欢迎补充内容！';
-    
-    // 显示模态框
     var modal = document.getElementById('teacherModal');
     modal.style.display = 'flex';
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
     
-    // 加载对应老师的评论
     loadCommentsForTeacher(identifier);
 }
 
@@ -264,13 +398,13 @@ function closeTeacherModal() {
     currentTeacher = null;
 }
 
-// 加载指定老师的评论列表
+// 加载老师评论
 function loadCommentsForTeacher(teacher) {
     var commentList = document.getElementById('teacherCommentList');
     var comments = commentsData[teacher] || [];
     
     if (comments.length === 0) {
-        commentList.innerHTML = '<p style="color:#999;text-align:center;padding:20px;">暂无评论，快来发表第一个评论吧！</p>';
+        commentList.innerHTML = '<p style="color:#999;text-align:center;padding:20px;">暂无评论</p>';
         return;
     }
     
@@ -305,148 +439,36 @@ function addTeacherComment() {
         return;
     }
     
-    // 创建评论对象
     var comment = {
         author: '访客',
         text: text,
         timestamp: Date.now()
     };
     
-    // 保存到当前老师的评论数组
     if (!commentsData[currentTeacher]) {
         commentsData[currentTeacher] = [];
     }
     commentsData[currentTeacher].push(comment);
-    
-    // 保存到 localStorage
     localStorage.setItem('commentsData', JSON.stringify(commentsData));
-    
-    // 重新加载评论列表
     loadCommentsForTeacher(currentTeacher);
-    
     input.value = '';
 }
 
 // 删除老师评论
 function removeTeacherComment(teacher, index) {
     if (!commentsData[teacher]) return;
-    
-    // 从数组中删除
     commentsData[teacher].splice(index, 1);
-    
-    // 保存到 localStorage
     localStorage.setItem('commentsData', JSON.stringify(commentsData));
-    
-    // 重新加载评论列表
     loadCommentsForTeacher(teacher);
 }
 
-// ===== 主留言板功能 =====
-
-// 加载主留言板评论
-function loadMainComments() {
-    var commentList = document.getElementById('mainCommentList');
-    var comments = commentsData.main || [];
-    
-    if (comments.length === 0) {
-        commentList.innerHTML = '<p style="color:#999;text-align:center;padding:20px;">暂无留言，快来发表第一个留言吧！</p>';
-        return;
+// ESC键关闭模态框
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('teacherModal').classList.contains('active')) {
+        closeTeacherModal();
     }
-    
-    var html = '';
-    comments.forEach(function(comment, index) {
-        var timestamp = new Date(comment.timestamp);
-        var timeStr = timestamp.toLocaleString();
-        var currentTime = Date.now();
-        var timeDiff = currentTime - comment.timestamp;
-        var canDelete = timeDiff <= 60000; // 1分钟内可撤回
-        
-        html += `
-            <div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-author">${comment.author}</span>
-                    <span class="comment-time">${timeStr}</span>
-                </div>
-                <div class="comment-text">${comment.text}</div>
-                ${canDelete ? `<button class="comment-delete" onclick="removeMainComment(${index})">撤回</button>` : ''}
-            </div>
-        `;
-    });
-    
-    commentList.innerHTML = html;
-}
-
-// 添加主留言板评论
-function addMainComment() {
-    var input = document.getElementById('mainCommentInput');
-    var text = input.value.trim();
-    if (!text) {
-        alert('请输入留言内容！');
-        return;
-    }
-    
-    // 创建评论对象
-    var comment = {
-        author: '访客',
-        text: text,
-        timestamp: Date.now()
-    };
-    
-    // 保存到主留言板
-    if (!commentsData.main) {
-        commentsData.main = [];
-    }
-    commentsData.main.push(comment);
-    
-    // 保存到 localStorage
-    localStorage.setItem('commentsData', JSON.stringify(commentsData));
-    
-    // 重新加载评论列表
-    loadMainComments();
-    
-    input.value = '';
-}
-
-// 删除主留言板评论（1分钟内）
-function removeMainComment(index) {
-    if (!commentsData.main) return;
-    
-    var comment = commentsData.main[index];
-    var currentTime = Date.now();
-    var timeDiff = currentTime - comment.timestamp;
-    
-    if (timeDiff > 60000) {
-        alert('只能撤回1分钟内的留言！');
-        return;
-    }
-    
-    // 从数组中删除
-    commentsData.main.splice(index, 1);
-    
-    // 保存到 localStorage
-    localStorage.setItem('commentsData', JSON.stringify(commentsData));
-    
-    // 重新加载评论列表
-    loadMainComments();
-}
-
-// 页面加载时初始化
-document.addEventListener('DOMContentLoaded', function() {
-    // 加载主留言板评论
-    loadMainComments();
-    
-    // ESC键关闭模态框
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && document.getElementById('teacherModal').classList.contains('active')) {
-            closeTeacherModal();
-        }
-    });
 });
-
-// 其他原有功能保持不变...
 </script>
-
-<!-- 其他原有脚本保持不变 -->
 
 </body>
 </html>
