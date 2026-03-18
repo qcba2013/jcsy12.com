@@ -95,12 +95,20 @@
     padding: 16px;
     border-bottom: 1px solid #eee;
     position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
 }
 
 .comment-author {
     font-weight: bold;
     color: #4a90d9;
-    margin-right: 10px;
 }
 
 .comment-text {
@@ -112,28 +120,23 @@
 .comment-time {
     font-size: 13px;
     color: #888;
-    display: inline-block;
-    margin-right: 15px;
-}
-
-.comment-actions {
-    float: right;
 }
 
 .comment-delete {
     background: none;
-    border: none;
+    border: 1px solid #ff6b6b;
     color: #ff6b6b;
     cursor: pointer;
-    font-size: 14px;
-    padding: 2px 8px;
+    font-size: 12px;
+    padding: 4px 8px;
     border-radius: 4px;
-    opacity: 0.8;
+    margin-left: 10px;
+    transition: all 0.2s;
 }
 
 .comment-delete:hover {
-    opacity: 1;
-    background: #ffebee;
+    background: #ff6b6b;
+    color: white;
 }
 
 /* 主页面样式保持不变 */
@@ -277,13 +280,13 @@ function loadCommentsForTeacher(teacher) {
         var timeStr = timestamp.toLocaleString();
         
         html += `
-            <div class="comment-item" data-index="${index}">
-                <div class="comment-author">${comment.author}</div>
-                <div class="comment-text">${comment.text}</div>
-                <div class="comment-time">${timeStr}</div>
-                <div class="comment-actions">
-                    <button class="comment-delete" onclick="removeTeacherComment(${index})">撤回</button>
+            <div class="comment-item">
+                <div class="comment-header">
+                    <span class="comment-author">${comment.author}</span>
+                    <span class="comment-time">${timeStr}</span>
                 </div>
+                <div class="comment-text">${comment.text}</div>
+                <button class="comment-delete" onclick="removeTeacherComment('${teacher}', ${index})">撤回</button>
             </div>
         `;
     });
@@ -325,17 +328,17 @@ function addTeacherComment() {
 }
 
 // 删除老师评论
-function removeTeacherComment(index) {
-    if (!currentTeacher || !commentsData[currentTeacher]) return;
+function removeTeacherComment(teacher, index) {
+    if (!commentsData[teacher]) return;
     
     // 从数组中删除
-    commentsData[currentTeacher].splice(index, 1);
+    commentsData[teacher].splice(index, 1);
     
     // 保存到 localStorage
     localStorage.setItem('commentsData', JSON.stringify(commentsData));
     
     // 重新加载评论列表
-    loadCommentsForTeacher(currentTeacher);
+    loadCommentsForTeacher(teacher);
 }
 
 // ===== 主留言板功能 =====
@@ -359,13 +362,13 @@ function loadMainComments() {
         var canDelete = timeDiff <= 60000; // 1分钟内可撤回
         
         html += `
-            <div class="comment-item" data-index="${index}">
-                <div class="comment-author">${comment.author}</div>
-                <div class="comment-text">${comment.text}</div>
-                <div class="comment-time">${timeStr}</div>
-                <div class="comment-actions">
-                    ${canDelete ? `<button class="comment-delete" onclick="removeMainComment(${index})">撤回</button>` : ''}
+            <div class="comment-item">
+                <div class="comment-header">
+                    <span class="comment-author">${comment.author}</span>
+                    <span class="comment-time">${timeStr}</span>
                 </div>
+                <div class="comment-text">${comment.text}</div>
+                ${canDelete ? `<button class="comment-delete" onclick="removeMainComment(${index})">撤回</button>` : ''}
             </div>
         `;
     });
