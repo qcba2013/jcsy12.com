@@ -60,7 +60,13 @@
             border-top: 2px solid #f0f0f0;
         }
 
-        /* 主页面样式保持不变 */
+        .disqus-container {
+            display: none;
+        }
+
+        .disqus-container.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -255,8 +261,26 @@
         </div>
         <div class="teacher-comments-section">
             <h4>💬 评论区</h4>
-            <!-- Disqus 评论框容器 -->
-            <div id="teacherDisqusThread"></div>
+            
+            <!-- 班主任评论区 -->
+            <div id="disqus_homeroom" class="disqus-container">
+                <div id="disqus_thread_homeroom"></div>
+            </div>
+            
+            <!-- 语文老师评论区 -->
+            <div id="disqus_chinese" class="disqus-container">
+                <div id="disqus_thread_chinese"></div>
+            </div>
+            
+            <!-- 数学老师评论区 -->
+            <div id="disqus_math" class="disqus-container">
+                <div id="disqus_thread_math"></div>
+            </div>
+            
+            <!-- 英语老师评论区 -->
+            <div id="disqus_english" class="disqus-container">
+                <div id="disqus_thread_english"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -270,7 +294,6 @@
 
 <script>
 var currentTeacher = null;
-var currentDisqusIdentifier = null;
 
 // 打开老师模态框
 function openTeacherModal(identifier, title) {
@@ -278,13 +301,21 @@ function openTeacherModal(identifier, title) {
     document.getElementById('teacherModalTitle').textContent = title + '介绍';
     document.getElementById('teacherInfo').textContent = '姓名：（待补充）\n简介：（待补充）\n寄语：（待补充）';
     
+    // 隐藏所有评论区
+    document.querySelectorAll('.disqus-container').forEach(function(container) {
+        container.classList.remove('active');
+    });
+    
+    // 显示当前老师的评论区
+    var currentContainer = document.getElementById('disqus_' + identifier);
+    if (currentContainer) {
+        currentContainer.classList.add('active');
+    }
+    
     var modal = document.getElementById('teacherModal');
     modal.style.display = 'flex';
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
-    
-    // 加载对应老师的 Disqus 评论区
-    loadTeacherDisqus(identifier);
 }
 
 // 关闭模态框
@@ -296,38 +327,51 @@ function closeTeacherModal() {
     currentTeacher = null;
 }
 
-// 加载老师的 Disqus 评论区
-function loadTeacherDisqus(identifier) {
-    // 如果已经加载过该老师的评论区，直接显示
-    if (currentDisqusIdentifier === identifier) {
-        return;
-    }
-    
-    // 清空之前的评论区
-    var thread = document.getElementById('teacherDisqusThread');
-    thread.innerHTML = '';
-    
-    // 配置 Disqus
-    window.disqus_config = function () {
-        this.page.url = window.location.href + '?teacher=' + identifier;
-        this.page.identifier = 'teacher-' + identifier;
-    };
-    
-    // 加载 Disqus 脚本
-    var s = document.createElement('script');
-    s.src = 'https://qcba2013.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    thread.appendChild(s);
-    
-    currentDisqusIdentifier = identifier;
-}
-
-// ESC键关闭模态框
+// ESC 键关闭模态框
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && document.getElementById('teacherModal').classList.contains('active')) {
         closeTeacherModal();
     }
 });
+</script>
+
+<!-- 四位老师的 Disqus 评论区（页面加载时初始化） -->
+<script>
+// 班主任
+(function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://qcba2013.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    s.setAttribute('data-disqus-identifier', 'teacher-homeroom');
+    d.getElementById('disqus_thread_homeroom').appendChild(s);
+})();
+
+// 语文老师
+(function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://qcba2013.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    s.setAttribute('data-disqus-identifier', 'teacher-chinese');
+    d.getElementById('disqus_thread_chinese').appendChild(s);
+})();
+
+// 数学老师
+(function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://qcba2013.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    s.setAttribute('data-disqus-identifier', 'teacher-math');
+    d.getElementById('disqus_thread_math').appendChild(s);
+})();
+
+// 英语老师
+(function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://qcba2013.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    s.setAttribute('data-disqus-identifier', 'teacher-english');
+    d.getElementById('disqus_thread_english').appendChild(s);
+})();
 </script>
 
 </body>
