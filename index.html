@@ -60,85 +60,6 @@
             border-top: 2px solid #f0f0f0;
         }
 
-        /* 评论区通用样式 */
-        .comment-box textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            resize: vertical;
-            min-height: 80px;
-            font-family: inherit;
-        }
-
-        .comment-box button {
-            margin-top: 12px;
-            padding: 10px 24px;
-            background: linear-gradient(135deg, #4a90d9, #67b26f);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.2s;
-        }
-
-        .comment-box button:hover {
-            transform: translateY(-2px);
-        }
-
-        .comment-list {
-            margin-top: 20px;
-        }
-
-        .comment-item {
-            padding: 16px;
-            border-bottom: 1px solid #eee;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .comment-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .comment-author {
-            font-weight: bold;
-            color: #4a90d9;
-        }
-
-        .comment-text {
-            color: #555;
-            margin: 8px 0;
-            line-height: 1.5;
-        }
-
-        .comment-time {
-            font-size: 13px;
-            color: #888;
-        }
-
-        .comment-delete {
-            background: none;
-            border: 1px solid #ff6b6b;
-            color: #ff6b6b;
-            cursor: pointer;
-            font-size: 12px;
-            padding: 4px 8px;
-            border-radius: 4px;
-            margin-left: 10px;
-            transition: all 0.2s;
-        }
-
-        .comment-delete:hover {
-            background: #ff6b6b;
-            color: white;
-        }
-
         /* 主页面样式保持不变 */
     </style>
 </head>
@@ -309,13 +230,10 @@
         <!-- Disqus 评论框 -->
         <div id="disqus_thread"></div>
         <script>
-            // 配置 Disqus
             var disqus_config = function () {
                 this.page.url = window.location.href;
                 this.page.identifier = 'main';
             };
-            
-            // 加载 Disqus 评论框
             (function() {
                 var d = document, s = d.createElement('script');
                 s.src = 'https://qcba2013.disqus.com/embed.js';
@@ -336,12 +254,9 @@
             <p id="teacherInfo"></p>
         </div>
         <div class="teacher-comments-section">
-            <h4>评论区</h4>
-            <div class="comment-box">
-                <textarea id="teacherCommentInput" placeholder="写下你的评论..."></textarea>
-                <button onclick="addTeacherComment()">发表评论</button>
-            </div>
-            <div id="teacherCommentList" class="comment-list"></div>
+            <h4>💬 评论区</h4>
+            <!-- Disqus 评论框容器 -->
+            <div id="teacherDisqusThread"></div>
         </div>
     </div>
 </div>
@@ -354,10 +269,8 @@
 </footer>
 
 <script>
-// 老师评论区仍然使用本地存储（因为每个老师独立）
-var commentsData = JSON.parse(localStorage.getItem('commentsData') || '{"homeroom":[],"chinese":[],"math":[],"english":[]}');
-
 var currentTeacher = null;
+var currentDisqusIdentifier = null;
 
 // 打开老师模态框
 function openTeacherModal(identifier, title) {
@@ -370,7 +283,8 @@ function openTeacherModal(identifier, title) {
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
     
-    loadCommentsForTeacher(identifier);
+    // 加载对应老师的 Disqus 评论区
+    loadTeacherDisqus(identifier);
 }
 
 // 关闭模态框
@@ -382,68 +296,30 @@ function closeTeacherModal() {
     currentTeacher = null;
 }
 
-// 加载老师评论
-function loadCommentsForTeacher(teacher) {
-    var commentList = document.getElementById('teacherCommentList');
-    var comments = commentsData[teacher] || [];
-    
-    if (comments.length === 0) {
-        commentList.innerHTML = '<p style="color:#999;text-align:center;padding:20px;">暂无评论</p>';
+// 加载老师的 Disqus 评论区
+function loadTeacherDisqus(identifier) {
+    // 如果已经加载过该老师的评论区，直接显示
+    if (currentDisqusIdentifier === identifier) {
         return;
     }
     
-    var html = '';
-    comments.forEach(function(comment, index) {
-        var timestamp = new Date(comment.timestamp);
-        var timeStr = timestamp.toLocaleString();
-        
-        html += `
-            <div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-author">${comment.author}</span>
-                    <span class="comment-time">${timeStr}</span>
-                </div>
-                <div class="comment-text">${comment.text}</div>
-                <button class="comment-delete" onclick="removeTeacherComment('${teacher}', ${index})">撤回</button>
-            </div>
-        `;
-    });
+    // 清空之前的评论区
+    var thread = document.getElementById('teacherDisqusThread');
+    thread.innerHTML = '';
     
-    commentList.innerHTML = html;
-}
-
-// 添加老师评论
-function addTeacherComment() {
-    if (!currentTeacher) return;
-    
-    var input = document.getElementById('teacherCommentInput');
-    var text = input.value.trim();
-    if (!text) {
-        alert('请输入评论内容！');
-        return;
-    }
-    
-    var comment = {
-        author: '访客',
-        text: text,
-        timestamp: Date.now()
+    // 配置 Disqus
+    window.disqus_config = function () {
+        this.page.url = window.location.href + '?teacher=' + identifier;
+        this.page.identifier = 'teacher-' + identifier;
     };
     
-    if (!commentsData[currentTeacher]) {
-        commentsData[currentTeacher] = [];
-    }
-    commentsData[currentTeacher].push(comment);
-    localStorage.setItem('commentsData', JSON.stringify(commentsData));
-    loadCommentsForTeacher(currentTeacher);
-    input.value = '';
-}
-
-// 删除老师评论
-function removeTeacherComment(teacher, index) {
-    if (!commentsData[teacher]) return;
-    commentsData[teacher].splice(index, 1);
-    localStorage.setItem('commentsData', JSON.stringify(commentsData));
-    loadCommentsForTeacher(teacher);
+    // 加载 Disqus 脚本
+    var s = document.createElement('script');
+    s.src = 'https://qcba2013.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    thread.appendChild(s);
+    
+    currentDisqusIdentifier = identifier;
 }
 
 // ESC键关闭模态框
