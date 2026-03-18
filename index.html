@@ -139,30 +139,6 @@
             color: white;
         }
 
-        /* 兔小巢反馈按钮样式 */
-        .txc-feedback-btn {
-            display: inline-block;
-            padding: 15px 30px;
-            background: linear-gradient(135deg, #00c853, #64dd17);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0, 200, 83, 0.3);
-            transition: all 0.3s;
-            margin: 20px 0;
-        }
-
-        .txc-feedback-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 200, 83, 0.4);
-        }
-
-        .txc-feedback-btn::before {
-            content: "💬 ";
-        }
-
         /* 主页面样式保持不变 */
     </style>
 </head>
@@ -324,22 +300,30 @@
     </div>
 </section>
 
-<!-- 留言板 -->
+<!-- 留言板 - Disqus 公共评论系统 -->
 <section id="message" class="section section-alt">
     <div class="container">
         <h2>💬 留言板</h2>
         <p class="section-desc">欢迎同学们留言、分享想法、提出建议！</p>
         
-        <!-- 兔小巢反馈按钮 -->
-        <div style="text-align: center; padding: 30px 0;">
-            <a href="https://support.qq.com/product/799644" target="_blank" class="txc-feedback-btn">
-                发表留言
-            </a>
-            <p style="color: #666; margin-top: 15px; font-size: 14px;">
-                💡 点击按钮，用 QQ 或微信登录后即可留言<br>
-                所有人都能看到彼此的留言哦！
-            </p>
-        </div>
+        <!-- Disqus 评论框 -->
+        <div id="disqus_thread"></div>
+        <script>
+            // 配置 Disqus
+            var disqus_config = function () {
+                this.page.url = window.location.href;
+                this.page.identifier = 'main';
+            };
+            
+            // 加载 Disqus 评论框
+            (function() {
+                var d = document, s = d.createElement('script');
+                s.src = 'https://qcba2013.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>请启用 JavaScript 来查看 Disqus 评论</noscript>
     </div>
 </section>
 
