@@ -1,381 +1,94 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>七年级 12 班 - 我们的班级主页</title>
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        /* 模态框样式 - 完美居中 */
-        #teacherModal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>七年级 12 班 - 我们的班级主页</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* 模态框样式 - 完美居中 */
+#teacherModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
 
-        #teacherModal.active {
-            display: flex;
-        }
+#teacherModal.active {
+    display: flex;
+}
 
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 700px;
-            max-height: 85vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
 
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2.5rem;
-            background: none;
-            border: none;
-            color: #999;
-            cursor: pointer;
-            transition: color 0.3s;
-            z-index: 2002;
-            line-height: 1;
-        }
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2.5rem;
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s;
+    z-index: 2002;
+    line-height: 1;
+}
 
-        .modal-close:hover {
-            color: #4a90d9;
-        }
-
-        .teacher-comments-section {
-            margin-top: 25px;
-            padding-top: 25px;
-            border-top: 2px solid #f0f0f0;
-        }
-
-        .disqus-container {
-            display: none;
-        }
-
-        .disqus-container.active {
-            display: block !important;
-        }
-    </style>
+.modal-close:hover {
+    color: #4a90d9;
+}
+</style>
 </head>
 <body>
 
-<nav class="navbar">
-    <div class="container">
-        <div class="logo">🏫七年级 12 班</div>
-        <ul class="nav-links">
-            <li><a href="#home">首页</a></li>
-            <li><a href="#about">班级介绍</a></li>
-            <li><a href="#members">同学风采</a></li>
-            <li><a href="#gallery">照片墙</a></li>
-            <li><a href="#calendar">重要日期</a></li>
-            <li><a href="#message">留言板</a></li>
-        </ul>
-    </div>
-</nav>
-
-<!-- 首页英雄区域 -->
-<section id="home" class="hero">
-    <div class="hero-content">
-        <h1>欢迎来到七年级 12 班！</h1>
-        <p class="slogan">团结友爱 · 勤奋学习 · 快乐成长</p>
-        <a href="#about" class="btn">了解我们</a>
-    </div>
-</section>
-
-<!-- 班级介绍 -->
-<section id="about" class="section section-alt">
-    <div class="container">
-        <h2>班级介绍</h2>
-        <p class="section-desc">我们的班级大家庭</p>
-        
-        <div class="about-content">
-            <button class="teacher-btn" onclick="openTeacherModal('homeroom', '班主任')">
-                <span class="btn-icon">👩‍🏫</span>
-                <span>班主任</span>
-            </button>
-            <button class="teacher-btn" onclick="openTeacherModal('chinese', '语文老师')">
-                <span class="btn-icon">📚</span>
-                <span>语文老师</span>
-            </button>
-            <button class="teacher-btn" onclick="openTeacherModal('math', '数学老师')">
-                <span class="btn-icon">🧮</span>
-                <span>数学老师</span>
-            </button>
-            <button class="teacher-btn" onclick="openTeacherModal('english', '英语老师')">
-                <span class="btn-icon">🌍</span>
-                <span>英语老师</span>
-            </button>
-        </div>
-    </div>
-</section>
-
-<!-- 同学风采 -->
-<section id="members" class="section">
-    <div class="container">
-        <h2>同学风采</h2>
-        <p class="section-desc">点击头像可以查看每位同学的详细介绍（功能待添加）</p>
-        
-        <div class="members-grid">
-            <div class="member-card">
-                <div class="avatar">👦</div>
-                <h4>魏千辰</h4>
-                <p class="role">网站创建者</p>
-                <p class="intro">热爱科技，喜欢探索新事物</p>
-            </div>
-            <div class="member-card">
-                <div class="avatar">👧</div>
-                <h4>同学 A</h4>
-                <p class="role">待定</p>
-                <p class="intro">欢迎补充信息</p>
-            </div>
-            <div class="member-card">
-                <div class="avatar">👦</div>
-                <h4>同学 B</h4>
-                <p class="role">待定</p>
-                <p class="intro">欢迎补充信息</p>
-            </div>
-            <div class="member-card">
-                <div class="avatar">👧</div>
-                <h4>同学 C</h4>
-                <p class="role">待定</p>
-                <p class="intro">欢迎补充信息</p>
-            </div>
-            <div class="member-card add-member">
-                <div class="avatar">➕</div>
-                <h4>添加同学</h4>
-                <p class="intro">联系管理员添加</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- 照片墙 -->
-<section id="gallery" class="section section-alt">
-    <div class="container">
-        <h2>照片墙</h2>
-        <p class="section-desc">记录我们的美好时光</p>
-        
-        <div class="gallery-grid">
-            <div class="photo-card">
-                <div class="photo-placeholder">🏃</div>
-                <p>运动会</p>
-            </div>
-            <div class="photo-card">
-                <div class="photo-placeholder">🚌</div>
-                <p>春游活动</p>
-            </div>
-            <div class="photo-card">
-                <div class="photo-placeholder">🎤</div>
-                <p>文艺汇演</p>
-            </div>
-            <div class="photo-card">
-                <div class="photo-placeholder">📚</div>
-                <p>课堂瞬间</p>
-            </div>
-            <div class="photo-card">
-                <div class="photo-placeholder">🎉</div>
-                <p>班级聚会</p>
-            </div>
-            <div class="photo-card">
-                <div class="photo-placeholder">🏆</div>
-                <p>荣誉时刻</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- 重要日期 -->
-<section id="calendar" class="section">
-    <div class="container">
-        <h2>重要日期</h2>
-        <p class="section-desc">班级重要活动和考试安排</p>
-        
-        <div class="calendar-list">
-            <div class="calendar-item">
-                <div class="date-badge">
-                    <span class="day">--</span>
-                    <span class="month">--</span>
-                </div>
-                <div class="event-info">
-                    <h4>待添加</h4>
-                    <p>欢迎添加班级重要日期</p>
-                </div>
-            </div>
-            <div class="calendar-item">
-                <div class="date-badge">
-                    <span class="day">--</span>
-                    <span class="month">--</span>
-                </div>
-                <div class="event-info">
-                    <h4>待添加</h4>
-                    <p>比如：期中考试、运动会、春游等</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- 留言板 - Disqus 公共评论系统 -->
-<section id="message" class="section section-alt">
-    <div class="container">
-        <h2>💬 留言板</h2>
-        <p class="section-desc">欢迎同学们留言、分享想法、提出建议！</p>
-        
-        <!-- Disqus 评论框 -->
-        <div id="disqus_thread"></div>
-        <script>
-            var disqus_config = function () {
-                this.page.url = window.location.href;
-                this.page.identifier = 'main';
-            };
-            (function() {
-                var d = document, s = d.createElement('script');
-                s.src = 'https://qcba2013.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-            })();
-        </script>
-        <noscript>请启用 JavaScript 来查看 Disqus 评论</noscript>
-    </div>
-</section>
+<nav class="navbar"><div class="container"><div class="logo">🏫七年级 12 班</div><ul class="nav-links"><li><a href="#home">首页</a></li><li><a href="#about">班级介绍</a></li><li><a href="#members">同学风采</a></li><li><a href="#gallery">照片墙</a></li><li><a href="#calendar">重要日期</a></li><li><a href="#message">留言板</a></li></ul></div></nav>
+<section id="home" class="hero"><div class="hero-content"><h1>欢迎来到七年级 12 班！</h1><p class="slogan">团结友爱 · 勤奋学习 · 快乐成长</p><a href="#about" class="btn">了解我们</a></div></section>
+<section id="about" class="section section-alt"><div class="container"><h2>班级介绍</h2><p class="section-desc">我们的班级大家庭</p><div class="about-content"><button class="teacher-btn" onclick="openTeacherModal('homeroom','班主任')"><span class="btn-icon">👩‍🏫</span><span>班主任</span></button><button class="teacher-btn" onclick="openTeacherModal('chinese','语文老师')"><span class="btn-icon">📚</span><span>语文老师</span></button><button class="teacher-btn" onclick="openTeacherModal('math','数学老师')"><span class="btn-icon">🧮</span><span>数学老师</span></button><button class="teacher-btn" onclick="openTeacherModal('english','英语老师')"><span class="btn-icon">🌍</span><span>英语老师</span></button></div></div></section>
+<section id="members" class="section"><div class="container"><h2>同学风采</h2><p class="section-desc">点击头像可以查看每位同学的详细介绍（功能待添加）</p><div class="members-grid"><div class="member-card"><div class="avatar">👦</div><h4>魏千辰</h4><p class="role">网站创建者</p><p class="intro">热爱科技，喜欢探索新事物</p></div><div class="member-card"><div class="avatar">👧</div><h4>同学 A</h4><p class="role">待定</p><p class="intro">欢迎补充信息</p></div><div class="member-card"><div class="avatar">👦</div><h4>同学 B</h4><p class="role">待定</p><p class="intro">欢迎补充信息</p></div><div class="member-card"><div class="avatar">👧</div><h4>同学 C</h4><p class="role">待定</p><p class="intro">欢迎补充信息</p></div><div class="member-card add-member"><div class="avatar">➕</div><h4>添加同学</h4><p class="intro">联系管理员添加</p></div></div></div></section>
+<section id="gallery" class="section section-alt"><div class="container"><h2>照片墙</h2><p class="section-desc">记录我们的美好时光</p><div class="gallery-grid"><div class="photo-card"><div class="photo-placeholder">🏃</div><p>运动会</p></div><div class="photo-card"><div class="photo-placeholder">🚌</div><p>春游活动</p></div><div class="photo-card"><div class="photo-placeholder">🎤</div><p>文艺汇演</p></div><div class="photo-card"><div class="photo-placeholder">📚</div><p>课堂瞬间</p></div><div class="photo-card"><div class="photo-placeholder">🎉</div><p>班级聚会</p></div><div class="photo-card"><div class="photo-placeholder">🏆</div><p>荣誉时刻</p></div></div></div></section>
+<section id="calendar" class="section"><div class="container"><h2>重要日期</h2><p class="section-desc">班级重要活动和考试安排</p><div class="calendar-list"><div class="calendar-item"><div class="date-badge"><span class="day">--</span><span class="month">--</span></div><div class="event-info"><h4>待添加</h4><p>欢迎添加班级重要日期</p></div></div><div class="calendar-item"><div class="date-badge"><span class="day">--</span><span class="month">--</span></div><div class="event-info"><h4>待添加</h4><p>比如：期中考试、运动会、春游等</p></div></div></div></div></section>
+<section id="message" class="section section-alt"><div class="container"><h2>💬 留言板</h2><p class="section-desc">欢迎同学们留言、分享想法、提出建议！</p><div id="disqus_thread"></div><script>var disqus_config=function(){this.page.url=window.location.href;this.page.identifier='main';};(function(){var d=document,s=d.createElement('script');s.src='https://qcba2013.disqus.com/embed.js';s.setAttribute('data-timestamp',+new Date());(d.head||d.body).appendChild(s);})();</script><noscript>请启用 JavaScript 来查看 Disqus 评论</noscript></div></section>
 
 <!-- 老师模态框 -->
-<div id="teacherModal">
-    <div class="modal-content">
-        <button class="modal-close" onclick="closeTeacherModal()">&times;</button>
-        <div class="modal-header">
-            <h3 id="teacherModalTitle">老师介绍</h3>
-            <p id="teacherInfo"></p>
-        </div>
-        <div class="teacher-comments-section">
-            <h4>💬 评论区</h4>
-            
-            <!-- 班主任评论区 -->
-            <div id="disqus_homeroom" class="disqus-container">
-                <div id="disqus_thread_homeroom"></div>
-            </div>
-            
-            <!-- 语文老师评论区 -->
-            <div id="disqus_chinese" class="disqus-container">
-                <div id="disqus_thread_chinese"></div>
-            </div>
-            
-            <!-- 数学老师评论区 -->
-            <div id="disqus_math" class="disqus-container">
-                <div id="disqus_thread_math"></div>
-            </div>
-            
-            <!-- 英语老师评论区 -->
-            <div id="disqus_english" class="disqus-container">
-                <div id="disqus_thread_english"></div>
-            </div>
-        </div>
-    </div>
-</div>
+<div id="teacherModal"><div class="modal-content"><button class="modal-close" onclick="closeTeacherModal()">&times;</button><div class="modal-header"><h3 id="teacherModalTitle">老师介绍</h3><p id="teacherInfo"></p></div></div></div>
 
-<footer class="footer">
-    <div class="container">
-        <p>🦐由 小虾 AI 助手 协助创建</p>
-        <p>七年级 12 班 © 2026 - 我们的青春纪念</p>
-    </div>
-</footer>
+<footer class="footer"><div class="container"><p>🦐由 小虾 AI 助手 协助创建</p><p>七年级 12 班 © 2026 - 我们的青春纪念</p></div></footer>
 
 <script>
-var currentTeacher = null;
-
-// 打开老师模态框
-function openTeacherModal(identifier, title) {
-    currentTeacher = identifier;
-    document.getElementById('teacherModalTitle').textContent = title + '介绍';
-    document.getElementById('teacherInfo').textContent = '姓名：（待补充）\n简介：（待补充）\n寄语：（待补充）';
-    
-    // 隐藏所有评论区
-    document.querySelectorAll('.disqus-container').forEach(function(container) {
-        container.classList.remove('active');
-    });
-    
-    // 显示当前老师的评论区
-    var currentContainer = document.getElementById('disqus_' + identifier);
-    if (currentContainer) {
-        currentContainer.classList.add('active');
-    }
-    
-    var modal = document.getElementById('teacherModal');
-    modal.style.display = 'flex';
+var currentTeacher=null;
+function openTeacherModal(identifier,title){
+    currentTeacher=identifier;
+    document.getElementById('teacherModalTitle').textContent=title+'介绍';
+    document.getElementById('teacherInfo').textContent='姓名：（待补充）\n简介：（待补充）\n寄语：（待补充）';
+    var modal=document.getElementById('teacherModal');
+    modal.style.display='flex';
     modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow='hidden';
 }
-
-// 关闭模态框
-function closeTeacherModal() {
-    var modal = document.getElementById('teacherModal');
-    modal.style.display = 'none';
+function closeTeacherModal(){
+    var modal=document.getElementById('teacherModal');
+    modal.style.display='none';
     modal.classList.remove('active');
-    document.body.style.overflow = '';
-    currentTeacher = null;
+    document.body.style.overflow='';
+    currentTeacher=null;
 }
-
-// ESC 键关闭模态框
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && document.getElementById('teacherModal').classList.contains('active')) {
-        closeTeacherModal();
-    }
-});
-
-// 页面加载完成后初始化所有 Disqus 评论区
-document.addEventListener('DOMContentLoaded', function() {
-    // 班主任
-    (function() {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://qcba2013.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        s.setAttribute('data-disqus-identifier', 'teacher-homeroom');
-        var thread = d.getElementById('disqus_thread_homeroom');
-        if (thread) thread.appendChild(s);
-    })();
-
-    // 语文老师
-    (function() {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://qcba2013.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        s.setAttribute('data-disqus-identifier', 'teacher-chinese');
-        var thread = d.getElementById('disqus_thread_chinese');
-        if (thread) thread.appendChild(s);
-    })();
-
-    // 数学老师
-    (function() {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://qcba2013.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        s.setAttribute('data-disqus-identifier', 'teacher-math');
-        var thread = d.getElementById('disqus_thread_math');
-        if (thread) thread.appendChild(s);
-    })();
-
-    // 英语老师
-    (function() {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://qcba2013.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        s.setAttribute('data-disqus-identifier', 'teacher-english');
-        var thread = d.getElementById('disqus_thread_english');
-        if (thread) thread.appendChild(s);
-    })();
-});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.getElementById('teacherModal').classList.contains('active')){closeTeacherModal();}});
 </script>
 
 </body>
