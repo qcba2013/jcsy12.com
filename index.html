@@ -30,7 +30,7 @@
 <div class="container">
 <h2>💬 留言板</h2>
 <p class="section-desc">欢迎同学们留言、分享想法、提出建议！</p>
-<div id="disqus_thread_main"></div>
+<div id="disqus_thread"></div>
 </div>
 </section>
 
@@ -64,83 +64,61 @@
 
 <footer class="footer"><div class="container"><p>🦐由 小虾 AI 助手 协助创建</p><p>七年级 12 班 © 2026 - 我们的青春纪念</p></div></footer>
 
-<!-- Disqus 短名称 -->
+<!-- 主留言板 Disqus -->
 <script>
-var disqus_shortname = 'qcba2013';
-</script>
-
-<!-- 主留言板 Disqus 配置 -->
-<script>
-var disqus_config_main = function () {
+var disqus_config = function () {
     this.page.url = window.location.href;
     this.page.identifier = 'main';
 };
 (function() {
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    var d = document, s = d.createElement('script');
+    s.src = 'https://qcba2013.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
 })();
 </script>
 
-<!-- 班主任 Disqus 配置 -->
+<!-- 班主任 Disqus -->
 <script>
-var disqus_config_homeroom = function () {
-    this.page.url = window.location.href + '?teacher=homeroom';
-    this.page.identifier = 'teacher-homeroom';
-};
 (function() {
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementById('disqus_thread_homeroom') || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    var d = document, s = d.createElement('script');
+    s.src = 'https://qcba2013.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    s.setAttribute('data-disqus-identifier', 'teacher-homeroom');
+    (d.getElementById('disqus_thread_homeroom') || d.body).appendChild(s);
 })();
 </script>
 
-<!-- 语文老师 Disqus 配置 -->
+<!-- 语文老师 Disqus -->
 <script>
-var disqus_config_chinese = function () {
-    this.page.url = window.location.href + '?teacher=chinese';
-    this.page.identifier = 'teacher-chinese';
-};
 (function() {
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementById('disqus_thread_chinese') || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    var d = document, s = d.createElement('script');
+    s.src = 'https://qcba2013.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    s.setAttribute('data-disqus-identifier', 'teacher-chinese');
+    (d.getElementById('disqus_thread_chinese') || d.body).appendChild(s);
 })();
 </script>
 
-<!-- 数学老师 Disqus 配置 -->
+<!-- 数学老师 Disqus -->
 <script>
-var disqus_config_math = function () {
-    this.page.url = window.location.href + '?teacher=math';
-    this.page.identifier = 'teacher-math';
-};
 (function() {
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementById('disqus_thread_math') || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    var d = document, s = d.createElement('script');
+    s.src = 'https://qcba2013.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    s.setAttribute('data-disqus-identifier', 'teacher-math');
+    (d.getElementById('disqus_thread_math') || d.body).appendChild(s);
 })();
 </script>
 
-<!-- 英语老师 Disqus 配置 -->
+<!-- 英语老师 Disqus -->
 <script>
-var disqus_config_english = function () {
-    this.page.url = window.location.href + '?teacher=english';
-    this.page.identifier = 'teacher-english';
-};
 (function() {
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementById('disqus_thread_english') || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    var d = document, s = d.createElement('script');
+    s.src = 'https://qcba2013.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    s.setAttribute('data-disqus-identifier', 'teacher-english');
+    (d.getElementById('disqus_thread_english') || d.body).appendChild(s);
 })();
 </script>
 
