@@ -12,8 +12,8 @@
 .modal-close{position:absolute;top:15px;right:20px;font-size:2.5rem;background:none;border:none;color:#999;cursor:pointer;transition:color 0.3s;z-index:2002;line-height:1}
 .modal-close:hover{color:#4a90d9}
 .teacher-comments{margin-top:25px;padding-top:25px;border-top:2px solid #f0f0f0}
-.disqus-box{display:none}
-.disqus-box.active{display:block}
+.disqus-thread{display:none}
+.disqus-thread.active{display:block}
 </style>
 </head>
 <body>
@@ -30,7 +30,7 @@
 <div class="container">
 <h2>💬 留言板</h2>
 <p class="section-desc">欢迎同学们留言、分享想法、提出建议！</p>
-<div id="disqus_thread"></div>
+<div id="disqus_thread_main"></div>
 </div>
 </section>
 
@@ -47,24 +47,16 @@
 <h4>💬 评论区</h4>
 
 <!-- 班主任评论区 -->
-<div id="disqus_homeroom" class="disqus-box">
-<div id="disqus_thread_homeroom"></div>
-</div>
+<div id="disqus_thread_homeroom" class="disqus-thread"></div>
 
 <!-- 语文老师评论区 -->
-<div id="disqus_chinese" class="disqus-box">
-<div id="disqus_thread_chinese"></div>
-</div>
+<div id="disqus_thread_chinese" class="disqus-thread"></div>
 
 <!-- 数学老师评论区 -->
-<div id="disqus_math" class="disqus-box">
-<div id="disqus_thread_math"></div>
-</div>
+<div id="disqus_thread_math" class="disqus-thread"></div>
 
 <!-- 英语老师评论区 -->
-<div id="disqus_english" class="disqus-box">
-<div id="disqus_thread_english"></div>
-</div>
+<div id="disqus_thread_english" class="disqus-thread"></div>
 
 </div>
 </div>
@@ -72,56 +64,83 @@
 
 <footer class="footer"><div class="container"><p>🦐由 小虾 AI 助手 协助创建</p><p>七年级 12 班 © 2026 - 我们的青春纪念</p></div></footer>
 
-<!-- 主留言板 Disqus -->
+<!-- Disqus 短名称 -->
 <script>
-var disqus_config = function () {
+var disqus_shortname = 'qcba2013';
+</script>
+
+<!-- 主留言板 Disqus 配置 -->
+<script>
+var disqus_config_main = function () {
     this.page.url = window.location.href;
     this.page.identifier = 'main';
 };
 (function() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://qcba2013.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();
 </script>
 
-<!-- 四位老师的 Disqus 评论区 -->
+<!-- 班主任 Disqus 配置 -->
 <script>
-// 班主任
+var disqus_config_homeroom = function () {
+    this.page.url = window.location.href + '?teacher=homeroom';
+    this.page.identifier = 'teacher-homeroom';
+};
 (function() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://qcba2013.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    s.setAttribute('data-disqus-identifier', 'teacher-homeroom');
-    (d.head || d.getElementById('disqus_thread_homeroom')).appendChild(s);
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementById('disqus_thread_homeroom') || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();
+</script>
 
-// 语文老师
+<!-- 语文老师 Disqus 配置 -->
+<script>
+var disqus_config_chinese = function () {
+    this.page.url = window.location.href + '?teacher=chinese';
+    this.page.identifier = 'teacher-chinese';
+};
 (function() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://qcba2013.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    s.setAttribute('data-disqus-identifier', 'teacher-chinese');
-    (d.head || d.getElementById('disqus_thread_chinese')).appendChild(s);
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementById('disqus_thread_chinese') || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();
+</script>
 
-// 数学老师
+<!-- 数学老师 Disqus 配置 -->
+<script>
+var disqus_config_math = function () {
+    this.page.url = window.location.href + '?teacher=math';
+    this.page.identifier = 'teacher-math';
+};
 (function() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://qcba2013.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    s.setAttribute('data-disqus-identifier', 'teacher-math');
-    (d.head || d.getElementById('disqus_thread_math')).appendChild(s);
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementById('disqus_thread_math') || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();
+</script>
 
-// 英语老师
+<!-- 英语老师 Disqus 配置 -->
+<script>
+var disqus_config_english = function () {
+    this.page.url = window.location.href + '?teacher=english';
+    this.page.identifier = 'teacher-english';
+};
 (function() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://qcba2013.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    s.setAttribute('data-disqus-identifier', 'teacher-english');
-    (d.head || d.getElementById('disqus_thread_english')).appendChild(s);
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementById('disqus_thread_english') || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();
 </script>
 
@@ -135,14 +154,14 @@ function openTeacherModal(identifier, title) {
     document.getElementById('teacherInfo').textContent = '姓名：（待补充）\n简介：（待补充）\n寄语：（待补充）';
     
     // 隐藏所有评论区
-    document.querySelectorAll('.disqus-box').forEach(function(box) {
-        box.classList.remove('active');
+    document.querySelectorAll('.disqus-thread').forEach(function(thread) {
+        thread.classList.remove('active');
     });
     
     // 显示当前老师的评论区
-    var currentBox = document.getElementById('disqus_' + identifier);
-    if (currentBox) {
-        currentBox.classList.add('active');
+    var currentThread = document.getElementById('disqus_thread_' + identifier);
+    if (currentThread) {
+        currentThread.classList.add('active');
     }
     
     var modal = document.getElementById('teacherModal');
