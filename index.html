@@ -12,6 +12,8 @@
 .modal-close{position:absolute;top:15px;right:20px;font-size:2.5rem;background:none;border:none;color:#999;cursor:pointer;transition:color 0.3s;z-index:2002;line-height:1}
 .modal-close:hover{color:#4a90d9}
 .teacher-comments{margin-top:25px;padding-top:25px;border-top:2px solid #f0f0f0}
+.disqus-box{display:none}
+.disqus-box.active{display:block}
 </style>
 </head>
 <body>
@@ -29,19 +31,6 @@
 <h2>💬 留言板</h2>
 <p class="section-desc">欢迎同学们留言、分享想法、提出建议！</p>
 <div id="disqus_thread"></div>
-<script>
-var disqus_config = function () {
-    this.page.url = window.location.href;
-    this.page.identifier = 'main';
-};
-(function() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://qcba2013.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>请启用 JavaScript 来查看 Disqus 评论</noscript>
 </div>
 </section>
 
@@ -56,12 +45,85 @@ var disqus_config = function () {
 <!-- 老师评论区 -->
 <div class="teacher-comments">
 <h4>💬 评论区</h4>
-<div id="teacherDisqusThread"></div>
+
+<!-- 班主任评论区 -->
+<div id="disqus_homeroom" class="disqus-box">
+<div id="disqus_thread_homeroom"></div>
+</div>
+
+<!-- 语文老师评论区 -->
+<div id="disqus_chinese" class="disqus-box">
+<div id="disqus_thread_chinese"></div>
+</div>
+
+<!-- 数学老师评论区 -->
+<div id="disqus_math" class="disqus-box">
+<div id="disqus_thread_math"></div>
+</div>
+
+<!-- 英语老师评论区 -->
+<div id="disqus_english" class="disqus-box">
+<div id="disqus_thread_english"></div>
+</div>
+
 </div>
 </div>
 </div>
 
 <footer class="footer"><div class="container"><p>🦐由 小虾 AI 助手 协助创建</p><p>七年级 12 班 © 2026 - 我们的青春纪念</p></div></footer>
+
+<!-- 主留言板 Disqus -->
+<script>
+var disqus_config = function () {
+    this.page.url = window.location.href;
+    this.page.identifier = 'main';
+};
+(function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://qcba2013.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+})();
+</script>
+
+<!-- 四位老师的 Disqus 评论区 -->
+<script>
+// 班主任
+(function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://qcba2013.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    s.setAttribute('data-disqus-identifier', 'teacher-homeroom');
+    (d.head || d.getElementById('disqus_thread_homeroom')).appendChild(s);
+})();
+
+// 语文老师
+(function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://qcba2013.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    s.setAttribute('data-disqus-identifier', 'teacher-chinese');
+    (d.head || d.getElementById('disqus_thread_chinese')).appendChild(s);
+})();
+
+// 数学老师
+(function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://qcba2013.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    s.setAttribute('data-disqus-identifier', 'teacher-math');
+    (d.head || d.getElementById('disqus_thread_math')).appendChild(s);
+})();
+
+// 英语老师
+(function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://qcba2013.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    s.setAttribute('data-disqus-identifier', 'teacher-english');
+    (d.head || d.getElementById('disqus_thread_english')).appendChild(s);
+})();
+</script>
 
 <script>
 var currentTeacher = null;
@@ -72,13 +134,21 @@ function openTeacherModal(identifier, title) {
     document.getElementById('teacherModalTitle').textContent = title + '介绍';
     document.getElementById('teacherInfo').textContent = '姓名：（待补充）\n简介：（待补充）\n寄语：（待补充）';
     
+    // 隐藏所有评论区
+    document.querySelectorAll('.disqus-box').forEach(function(box) {
+        box.classList.remove('active');
+    });
+    
+    // 显示当前老师的评论区
+    var currentBox = document.getElementById('disqus_' + identifier);
+    if (currentBox) {
+        currentBox.classList.add('active');
+    }
+    
     var modal = document.getElementById('teacherModal');
     modal.style.display = 'flex';
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
-    
-    // 加载对应老师的 Disqus 评论区
-    loadTeacherDisqus(identifier);
 }
 
 // 关闭模态框
@@ -90,31 +160,6 @@ function closeTeacherModal() {
     currentTeacher = null;
 }
 
-// 加载老师的 Disqus 评论区
-function loadTeacherDisqus(identifier) {
-    var thread = document.getElementById('teacherDisqusThread');
-    
-    // 配置 Disqus
-    window.disqus_config = function () {
-        this.page.url = window.location.href + '?teacher=' + identifier;
-        this.page.identifier = 'teacher-' + identifier;
-    };
-    
-    // 如果 Disqus 已加载，重置它
-    if (window.DISQUS) {
-        window.DISQUS.reset({
-            reload: true,
-            config: window.disqus_config
-        });
-    } else {
-        // 首次加载
-        var s = document.createElement('script');
-        s.src = 'https://qcba2013.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        thread.appendChild(s);
-    }
-}
-
 // ESC 键关闭模态框
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && document.getElementById('teacherModal').classList.contains('active')) {
@@ -122,6 +167,8 @@ document.addEventListener('keydown', function(e) {
     }
 });
 </script>
+
+<noscript>请启用 JavaScript 来查看 Disqus 评论</noscript>
 
 </body>
 </html>
