@@ -12,16 +12,22 @@
 .modal-close{position:absolute;top:15px;right:20px;font-size:2.5rem;background:none;border:none;color:#999;cursor:pointer;transition:color 0.3s;z-index:2002;line-height:1}
 .modal-close:hover{color:#4a90d9}
 
-/* 鲜黄色闪电标志 */
-.lightning{color:#FFD700;font-size:2rem;display:inline-block;text-shadow:0 0 10px rgba(255,215,0,0.8);animation:pulse 1.5s ease-in-out infinite}
-@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:0.9}}
+/* 导航栏闪电图标 */
+.nav-lightning{width:50px;height:50px;flex-shrink:0;filter:drop-shadow(0 0 8px #FFD700);animation:lightning-pulse 1.5s ease-in-out infinite}
+@keyframes lightning-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.15);opacity:0.9}}
 </style>
 </head>
 <body>
 
 <nav class="navbar">
 <div class="container">
-<div class="logo"><span class="lightning">⚡</span>🏫七年级 12 班<span class="lightning">⚡</span></div>
+<!-- 左边闪电 -->
+<svg class="nav-lightning" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<polygon points="50,5 20,50 35,50 25,95 70,40 50,40" fill="#FFD700" stroke="#FFA500" stroke-width="3"/>
+</svg>
+
+<div class="logo">🏫七年级 12 班</div>
+
 <ul class="nav-links">
 <li><a href="#home">首页</a></li>
 <li><a href="#about">班级介绍</a></li>
@@ -30,11 +36,16 @@
 <li><a href="#calendar">重要日期</a></li>
 <li><a href="#message">留言板</a></li>
 </ul>
+
+<!-- 右边闪电 -->
+<svg class="nav-lightning" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<polygon points="50,5 20,50 35,50 25,95 70,40 50,40" fill="#FFD700" stroke="#FFA500" stroke-width="3"/>
+</svg>
 </div>
 </nav>
 
 <section id="home" class="hero"><div class="hero-content"><h1>欢迎来到七年级 12 班！</h1><p class="slogan">团结友爱 · 勤奋学习 · 快乐成长</p><a href="#about" class="btn">了解我们</a></div></section>
-<section id="about" class="section section-alt"><div class="container"><h2>班级介绍</h2><p class="section-desc">我们的班级大家庭</p><div class="about-content"><button class="teacher-btn" onclick="openTeacherModal('homeroom','班主任')"><span class="btn-icon">👩‍🏫</span><span>班主任</span></button><button class="teacher-btn" onclick="openTeacherModal('chinese','语文老师')"><span class="btn-icon">📚</span><span>语文老师</span></button><button class="teacher-btn" onclick="openTeacherModal('math','数学老师')"><span class="btn-icon">🧮</span><span>数学老师</span></button><button class="teacher-btn" onclick="openTeacherModal('english','英语老师')"><span class="btn-icon">🌍</span><span>英语老师</span></button></div></div></section>
+<section id="about" class="section section-alt"><div class="container"><h2>班级介绍</h2><p class="section-desc">我们的班级大家庭</p><div class="about-content"><button class="teacher-btn" onclick="openTeacherModal('homeroom','班主任')"><span class="btn-icon">👩‍</span><span>班主任</span></button><button class="teacher-btn" onclick="openTeacherModal('chinese','语文老师')"><span class="btn-icon">📚</span><span>语文老师</span></button><button class="teacher-btn" onclick="openTeacherModal('math','数学老师')"><span class="btn-icon">🧮</span><span>数学老师</span></button><button class="teacher-btn" onclick="openTeacherModal('english','英语老师')"><span class="btn-icon">🌍</span><span>英语老师</span></button></div></div></section>
 <section id="members" class="section"><div class="container"><h2>同学风采</h2><p class="section-desc">点击头像可以查看每位同学的详细介绍（功能待添加）</p><div class="members-grid"><div class="member-card"><div class="avatar">👦</div><h4>魏千辰</h4><p class="role">网站创建者</p><p class="intro">热爱科技，喜欢探索新事物</p></div><div class="member-card"><div class="avatar">👧</div><h4>同学 A</h4><p class="role">待定</p><p class="intro">欢迎补充信息</p></div><div class="member-card"><div class="avatar">👦</div><h4>同学 B</h4><p class="role">待定</p><p class="intro">欢迎补充信息</p></div><div class="member-card"><div class="avatar">👧</div><h4>同学 C</h4><p class="role">待定</p><p class="intro">欢迎补充信息</p></div><div class="member-card add-member"><div class="avatar">➕</div><h4>添加同学</h4><p class="intro">联系管理员添加</p></div></div></div></section>
 <section id="gallery" class="section section-alt"><div class="container"><h2>照片墙</h2><p class="section-desc">记录我们的美好时光</p><div class="gallery-grid"><div class="photo-card"><div class="photo-placeholder">🏃</div><p>运动会</p></div><div class="photo-card"><div class="photo-placeholder">🚌</div><p>春游活动</p></div><div class="photo-card"><div class="photo-placeholder">🎤</div><p>文艺汇演</p></div><div class="photo-card"><div class="photo-placeholder">📚</div><p>课堂瞬间</p></div><div class="photo-card"><div class="photo-placeholder">🎉</div><p>班级聚会</p></div><div class="photo-card"><div class="photo-placeholder">🏆</div><p>荣誉时刻</p></div></div></div></section>
 <section id="calendar" class="section"><div class="container"><h2>重要日期</h2><p class="section-desc">班级重要活动和考试安排</p><div class="calendar-list"><div class="calendar-item"><div class="date-badge"><span class="day">--</span><span class="month">--</span></div><div class="event-info"><h4>待添加</h4><p>欢迎添加班级重要日期</p></div></div><div class="calendar-item"><div class="date-badge"><span class="day">--</span><span class="month">--</span></div><div class="event-info"><h4>待添加</h4><p>比如：期中考试、运动会、春游等</p></div></div></div></div></section>
