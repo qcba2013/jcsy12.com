@@ -15,22 +15,32 @@
 </head>
 <body>
 
-<nav class="navbar"><div class="container"><div class="logo">🏫七年级 12 班</div><ul class="nav-links"><li><a href="#home">首页</a></li><li><a href="#about">班级介绍</a></li><li><a href="#members">同学风采</a></li><li><a href="#gallery">照片墙</a></li><li><a href="#calendar">重要日期</a></li><li><a href="#message">留言板</a></li></ul></div></nav>
+<nav class="navbar">
+<div class="container">
+<div class="logo">⚡🏫七年级 12 班</div>
+<ul class="nav-links">
+<li><a href="#home">首页</a></li>
+<li><a href="#about">班级介绍</a></li>
+<li><a href="#members">同学风采</a></li>
+<li><a href="#gallery">照片墙</a></li>
+<li><a href="#calendar">重要日期</a></li>
+<li><a href="#message">留言板</a></li>
+<li><a href="#home" style="font-size:1.5rem;">⚡</a></li>
+</ul>
+</div>
+</nav>
+
 <section id="home" class="hero"><div class="hero-content"><h1>欢迎来到七年级 12 班！</h1><p class="slogan">团结友爱 · 勤奋学习 · 快乐成长</p><a href="#about" class="btn">了解我们</a></div></section>
 <section id="about" class="section section-alt"><div class="container"><h2>班级介绍</h2><p class="section-desc">我们的班级大家庭</p><div class="about-content"><button class="teacher-btn" onclick="openTeacherModal('homeroom','班主任')"><span class="btn-icon">👩‍🏫</span><span>班主任</span></button><button class="teacher-btn" onclick="openTeacherModal('chinese','语文老师')"><span class="btn-icon">📚</span><span>语文老师</span></button><button class="teacher-btn" onclick="openTeacherModal('math','数学老师')"><span class="btn-icon">🧮</span><span>数学老师</span></button><button class="teacher-btn" onclick="openTeacherModal('english','英语老师')"><span class="btn-icon">🌍</span><span>英语老师</span></button></div></div></section>
 <section id="members" class="section"><div class="container"><h2>同学风采</h2><p class="section-desc">点击头像可以查看每位同学的详细介绍（功能待添加）</p><div class="members-grid"><div class="member-card"><div class="avatar">👦</div><h4>魏千辰</h4><p class="role">网站创建者</p><p class="intro">热爱科技，喜欢探索新事物</p></div><div class="member-card"><div class="avatar">👧</div><h4>同学 A</h4><p class="role">待定</p><p class="intro">欢迎补充信息</p></div><div class="member-card"><div class="avatar">👦</div><h4>同学 B</h4><p class="role">待定</p><p class="intro">欢迎补充信息</p></div><div class="member-card"><div class="avatar">👧</div><h4>同学 C</h4><p class="role">待定</p><p class="intro">欢迎补充信息</p></div><div class="member-card add-member"><div class="avatar">➕</div><h4>添加同学</h4><p class="intro">联系管理员添加</p></div></div></div></section>
 <section id="gallery" class="section section-alt"><div class="container"><h2>照片墙</h2><p class="section-desc">记录我们的美好时光</p><div class="gallery-grid"><div class="photo-card"><div class="photo-placeholder">🏃</div><p>运动会</p></div><div class="photo-card"><div class="photo-placeholder">🚌</div><p>春游活动</p></div><div class="photo-card"><div class="photo-placeholder">🎤</div><p>文艺汇演</p></div><div class="photo-card"><div class="photo-placeholder">📚</div><p>课堂瞬间</p></div><div class="photo-card"><div class="photo-placeholder">🎉</div><p>班级聚会</p></div><div class="photo-card"><div class="photo-placeholder">🏆</div><p>荣誉时刻</p></div></div></div></section>
 <section id="calendar" class="section"><div class="container"><h2>重要日期</h2><p class="section-desc">班级重要活动和考试安排</p><div class="calendar-list"><div class="calendar-item"><div class="date-badge"><span class="day">--</span><span class="month">--</span></div><div class="event-info"><h4>待添加</h4><p>欢迎添加班级重要日期</p></div></div><div class="calendar-item"><div class="date-badge"><span class="day">--</span><span class="month">--</span></div><div class="event-info"><h4>待添加</h4><p>比如：期中考试、运动会、春游等</p></div></div></div></div></section>
 
-<!-- 留言板 - LiveRe 来必力 -->
+<!-- 留言板 -->
 <section id="message" class="section section-alt">
 <div class="container">
 <h2>💬 留言板</h2>
-<p class="section-desc">欢迎同学们留言、分享想法、提出建议！</p>
-
-<!-- LiveRe 评论框 -->
-<div id="lv-container" data-id="site" data-uid="vFSalNmpjxH0pgPPyKcW"></div>
-
+<p class="section-desc">欢迎同学们留言、分享想法、提出建议！（功能待添加）</p>
 </div>
 </section>
 
@@ -46,18 +56,6 @@
 </div>
 
 <footer class="footer"><div class="container"><p>🦐由 小虾 AI 助手 协助创建</p><p>七年级 12 班 © 2026 - 我们的青春纪念</p></div></footer>
-
-<!-- LiveRe 评论系统代码 -->
-<script type="text/javascript">
-(function(d, s) {
-    var j, e = d.getElementsByTagName(s)[0];
-    if (typeof LivereTower === 'function') { return; }
-    j = d.createElement(s);
-    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-    j.async = true;
-    e.parentNode.insertBefore(j, e);
-})(document, 'script');
-</script>
 
 <script>
 var currentTeacher=null;
