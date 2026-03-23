@@ -6,19 +6,35 @@
 <title>七年级 12 班 - 我们的班级主页</title>
 <link rel="stylesheet" href="css/style.css">
 <style>
+/* 导航栏闪电图标 */
+.nav-lightning{width:50px;height:50px;flex-shrink:0;filter:drop-shadow(0 0 10px #FFD700);animation:lightning-pulse 1s ease-in-out infinite}
+@keyframes lightning-pulse{0%,100%{transform:scale(1);opacity:1;filter:drop-shadow(0 0 10px #FFD700)}50%{transform:scale(1.2);opacity:0.85;filter:drop-shadow(0 0 25px #FFD700) drop-shadow(0 0 45px #FFA500)}}
+
+/* 老师/同学模态框 */
 #teacherModal,#classmatesModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:2000;justify-content:center;align-items:center}
 #teacherModal.active,#classmatesModal.active{display:flex}
-.modal-content{background:white;padding:30px;border-radius:20px;width:90%;max-width:800px;max-height:85vh;overflow-y:auto;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
-.modal-close{position:absolute;top:15px;right:20px;font-size:2.5rem;background:none;border:none;color:#999;cursor:pointer;transition:color 0.3s;z-index:2002;line-height:1}
-.modal-close:hover{color:#4a90d9}
+.modal-content{background:white;border-radius:20px;width:75%;max-width:75vw;height:75%;max-height:75vh;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.3);overflow:hidden;display:flex;flex-direction:column}
+.modal-header{background:linear-gradient(135deg,#4a90d9,#67b26f);padding:20px;text-align:center;color:white;flex-shrink:0}
+.modal-header h3{margin:0 0 5px 0;font-size:1.8rem}
+.modal-header p{margin:0;opacity:0.9}
+.modal-close{position:absolute;top:15px;right:20px;font-size:2.5rem;background:#000;border:none;color:#000;cursor:pointer;transition:opacity 0.3s;z-index:2002;line-height:1;border-radius:5px;width:40px;height:40px;text-align:center}
+.modal-close:hover{opacity:0.7}
+.modal-body{flex:1;overflow-y:auto;padding:30px}
+
+/* 老师介绍按钮布局 */
+.teacher-buttons{display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
 
 /* 同学风采布局 */
-.classmates-container{display:flex;gap:20px;margin-top:20px;min-height:400px}
-.classmates-buttons{display:flex;flex-wrap:wrap;gap:15px;align-content:flex-start;min-width:200px}
-.classmates-profile{flex:1;background:#f8f9fa;padding:25px;border-radius:15px;position:relative;display:none}
-.classmates-profile.active{display:block}
-.profile-close{position:absolute;top:10px;right:15px;font-size:2rem;background:none;border:none;color:#999;cursor:pointer;transition:color 0.3s}
-.profile-close:hover{color:#4a90d9}
+.classmates-container{display:flex;height:100%;gap:20px}
+.classmates-left{width:25%;overflow-y:auto;padding-right:10px}
+.classmates-left .teacher-btn{width:100%;margin-bottom:10px}
+.classmates-right{width:75%;background:#f8f9fa;border-radius:15px;padding:25px;overflow-y:auto;position:relative}
+.profile-close{position:absolute;top:10px;right:15px;font-size:2rem;background:#000;border:none;color:#fff;cursor:pointer;transition:opacity 0.3s;z-index:100;width:35px;height:35px;border-radius:5px}
+.profile-close:hover{opacity:0.7}
+.student-profile{display:none}
+.student-profile.active{display:block}
+.student-profile h4{margin-top:0;font-size:1.5rem;color:#333}
+.student-profile p{white-space:pre-line;line-height:1.8;color:#555}
 </style>
 </head>
 <body>
@@ -47,8 +63,8 @@
 </nav>
 
 <section id="home" class="hero"><div class="hero-content"><h1>欢迎来到七年级 12 班！</h1><p class="slogan">团结友爱 · 勤奋学习 · 快乐成长</p><a href="#about" class="btn">了解我们</a></div></section>
-<section id="about" class="section section-alt"><div class="container"><h2>老师介绍</h2><p class="section-desc">我们的教师团队</p><div class="about-content"><button class="teacher-btn" onclick="openTeacherModal('homeroom','班主任')"><span class="btn-icon">👨</span><span>班主任</span></button><button class="teacher-btn" onclick="openTeacherModal('chinese','语文老师')"><span class="btn-icon">📚</span><span>语文老师</span></button><button class="teacher-btn" onclick="openTeacherModal('math','数学老师')"><span class="btn-icon">🧮</span><span>数学老师</span></button><button class="teacher-btn" onclick="openTeacherModal('english','英语老师')"><span class="btn-icon">🌍</span><span>英语老师</span></button></div></div></section>
-<section id="members" class="section"><div class="container"><h2>同学风采</h2><p class="section-desc">点击查看每位同学的详细介绍</p><button class="teacher-btn" onclick="openClassmatesModal()"><span class="btn-icon">👥</span><span>同学风采</span></button></div></section>
+<section id="about" class="section section-alt"><div class="container"><h2>老师介绍</h2><p class="section-desc">我们的教师团队</p><div class="teacher-buttons"><button class="teacher-btn" onclick="openTeacherModal('homeroom','班主任')"><span class="btn-icon">👨</span><span>班主任</span></button><button class="teacher-btn" onclick="openTeacherModal('chinese','语文老师')"><span class="btn-icon">📚</span><span>语文老师</span></button><button class="teacher-btn" onclick="openTeacherModal('math','数学老师')"><span class="btn-icon">🧮</span><span>数学老师</span></button><button class="teacher-btn" onclick="openTeacherModal('english','英语老师')"><span class="btn-icon">🌍</span><span>英语老师</span></button></div></div></section>
+<section id="members" class="section"><div class="container"><h2>同学风采</h2><p class="section-desc">点击查看每位同学的详细介绍</p><button class="teacher-btn" onclick="openClassmatesModal()" style="width:75%;margin:20px auto;display:block;max-width:75vw;"><span class="btn-icon">👥</span><span>同学风采</span></button></div></section>
 <section id="gallery" class="section section-alt"><div class="container"><h2>照片墙</h2><p class="section-desc">记录我们的美好时光</p><div class="gallery-grid"><div class="photo-card"><div class="photo-placeholder">🏃</div><p>运动会</p></div><div class="photo-card"><div class="photo-placeholder">🚌</div><p>春游活动</p></div><div class="photo-card"><div class="photo-placeholder">🎤</div><p>文艺汇演</p></div><div class="photo-card"><div class="photo-placeholder">📚</div><p>课堂瞬间</p></div><div class="photo-card"><div class="photo-placeholder">🎉</div><p>班级聚会</p></div><div class="photo-card"><div class="photo-placeholder">🏆</div><p>荣誉时刻</p></div></div></div></section>
 <section id="calendar" class="section"><div class="container"><h2>重要日期</h2><p class="section-desc">班级重要活动和考试安排</p><div class="calendar-list"><div class="calendar-item"><div class="date-badge"><span class="day">--</span><span class="month">--</span></div><div class="event-info"><h4>待添加</h4><p>欢迎添加班级重要日期</p></div></div><div class="calendar-item"><div class="date-badge"><span class="day">--</span><span class="month">--</span></div><div class="event-info"><h4>待添加</h4><p>比如：期中考试、运动会、春游等</p></div></div></div></div></section>
 
@@ -63,10 +79,22 @@
 <!-- 老师模态框 -->
 <div id="teacherModal">
 <div class="modal-content">
-<button class="modal-close" onclick="closeTeacherModal()">&times;</button>
+<button class="modal-close" onclick="closeTeacherModal()"><b>✕</b></button>
 <div class="modal-header">
 <h3 id="teacherModalTitle">老师介绍</h3>
-<p id="teacherInfo"></p>
+<p id="teacherModalDesc">点击按钮查看老师详情</p>
+</div>
+<div class="modal-body">
+<div class="teacher-buttons">
+<button class="teacher-btn" onclick="openTeacherModal('homeroom','班主任')"><span class="btn-icon">👨</span><span>班主任</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('chinese','语文老师')"><span class="btn-icon">📚</span><span>语文老师</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('math','数学老师')"><span class="btn-icon">🧮</span><span>数学老师</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('english','英语老师')"><span class="btn-icon">🌍</span><span>英语老师</span></button>
+</div>
+<div id="teacherProfile" style="margin-top:30px;padding:20px;background:#f8f9fa;border-radius:15px;display:none;">
+<h4 id="teacherName" style="margin-top:0;font-size:1.5rem;"></h4>
+<p id="teacherInfo" style="white-space:pre-line;line-height:1.8;"></p>
+</div>
 </div>
 </div>
 </div>
@@ -74,15 +102,15 @@
 <!-- 同学模态框 -->
 <div id="classmatesModal">
 <div class="modal-content">
-<button class="modal-close" onclick="closeClassmatesModal()">&times;</button>
+<button class="modal-close" onclick="closeClassmatesModal()"><b>✕</b></button>
 <div class="modal-header">
 <h3>👥 同学风采</h3>
 <p>点击同学头像查看简介</p>
 </div>
-
+<div class="modal-body" style="padding:0;">
 <div class="classmates-container">
-<!-- 左侧：同学按钮列表 -->
-<div class="classmates-buttons">
+<!-- 左侧 1/4：同学按钮 -->
+<div class="classmates-left">
 <button class="teacher-btn" onclick="openStudentModal('student1','魏千辰')"><span class="btn-icon">👦</span><span>魏千辰</span></button>
 <button class="teacher-btn" onclick="openStudentModal('student2','同学 2')"><span class="btn-icon">👧</span><span>同学 2</span></button>
 <button class="teacher-btn" onclick="openStudentModal('student3','同学 3')"><span class="btn-icon">👦</span><span>同学 3</span></button>
@@ -95,25 +123,34 @@
 <button class="teacher-btn" onclick="openStudentModal('student10','同学 10')"><span class="btn-icon">👧</span><span>同学 10</span></button>
 </div>
 
-<!-- 右侧：同学简介 -->
-<div id="studentProfile" class="classmates-profile">
-<button class="profile-close" onclick="closeStudentProfile()">&times;</button>
-<h4 id="studentName" style="margin-top:0;font-size:1.5rem;color:#333;"></h4>
-<p id="studentInfo" style="white-space:pre-line;line-height:1.8;color:#555;"></p>
+<!-- 右侧 3/4：同学简介 -->
+<div class="classmates-right">
+<button class="profile-close" onclick="closeStudentProfile()"><b>✕</b></button>
+<div id="studentProfile" class="student-profile">
+<h4 id="studentName"></h4>
+<p id="studentInfo"></p>
+</div>
+<div id="studentPlaceholder" style="text-align:center;color:#999;padding-top:100px;">
+<p style="font-size:1.2rem;">👈 点击左侧同学头像查看简介</p>
 </div>
 </div>
-
+</div>
+</div>
 </div>
 </div>
 
 <footer class="footer"><div class="container"><p>🦐由 小虾 AI 助手 协助创建</p><p>七年级 12 班 © 2026 - 我们的青春纪念</p></div></footer>
 
 <script>
+// 老师模态框
 var currentTeacher=null;
 function openTeacherModal(identifier,title){
     currentTeacher=identifier;
     document.getElementById('teacherModalTitle').textContent=title+'介绍';
-    document.getElementById('teacherInfo').textContent='姓名：（待补充）\n简介：（待补充）\n寄语：（待补充）';
+    document.getElementById('teacherModalDesc').textContent='姓名：（待补充）| 简介：（待补充）| 寄语：（待补充）';
+    document.getElementById('teacherName').textContent='👤 '+title;
+    document.getElementById('teacherInfo').textContent='姓名：（待补充）\n简介：（待补充）\n寄语：（待补充）\n\n📝 联系管理员补充完整信息';
+    document.getElementById('teacherProfile').style.display='block';
     var modal=document.getElementById('teacherModal');
     modal.style.display='flex';
     modal.classList.add('active');
@@ -123,6 +160,7 @@ function closeTeacherModal(){
     var modal=document.getElementById('teacherModal');
     modal.style.display='none';
     modal.classList.remove('active');
+    document.getElementById('teacherProfile').style.display='none';
     document.body.style.overflow='';
     currentTeacher=null;
 }
@@ -150,12 +188,14 @@ function closeClassmatesModal(){
 }
 function openStudentModal(id,name){
     currentStudent=id;
+    document.getElementById('studentPlaceholder').style.display='none';
+    document.getElementById('studentProfile').classList.add('active');
     document.getElementById('studentName').textContent='👤 '+name;
     document.getElementById('studentInfo').textContent='姓名：'+name+'\n\n简介：（待补充）\n爱好：（待补充）\n座右铭：（待补充）\n\n📝 联系管理员补充完整信息';
-    document.getElementById('studentProfile').classList.add('active');
 }
 function closeStudentProfile(){
     document.getElementById('studentProfile').classList.remove('active');
+    document.getElementById('studentPlaceholder').style.display='block';
     currentStudent=null;
 }
 document.addEventListener('keydown',function(e){
