@@ -22,13 +22,16 @@
 .modal-body{flex:1;overflow-y:auto;padding:30px}
 
 /* 老师介绍按钮布局 */
-.teacher-buttons{display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
+.teacher-buttons{display:flex;flex-wrap:wrap;gap:15px;justify-content:center}
+.teacher-buttons .teacher-btn{width:calc(12.5% - 15px);margin:5px 0;padding:15px 10px}
 
 /* 同学风采布局 */
 .classmates-container{display:flex;height:100%;gap:20px}
 .classmates-left{width:30%;overflow-y:auto;padding:15px;background:#f0f2f5;border-radius:10px}
-.classmates-left .teacher-btn{width:calc(33.33% - 10px);margin:5px;padding:8px 5px;font-size:0.9rem;display:inline-block}
+.classmates-left .teacher-btn{width:calc(33.33% - 8px);margin:4px;padding:10px 5px;font-size:0.85rem;display:block;float:left;transition:transform 0.2s,box-shadow 0.2s}
+.classmates-left .teacher-btn:hover{transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,0,0,0.15)}
 .classmates-left .teacher-btn .btn-icon{display:none}
+.classmates-left::after{content:"";display:table;clear:both}
 .classmates-right{width:75%;background:#f8f9fa;border-radius:15px;padding:25px;overflow-y:auto;position:relative}
 .profile-close{position:absolute;top:10px;right:15px;font-size:2rem;background:transparent;border:none;color:#000;cursor:pointer;transition:opacity 0.3s;z-index:100;font-weight:bold;display:none}
 .profile-close.active{display:block}
@@ -65,8 +68,22 @@
 </nav>
 
 <section id="home" class="hero"><div class="hero-content"><h1>欢迎来到七年级 12 班！</h1><p class="slogan">团结友爱 · 勤奋学习 · 快乐成长</p><a href="#about" class="btn">了解我们</a></div></section>
-<section id="about" class="section section-alt"><div class="container"><h2>老师介绍</h2><p class="section-desc">我们的教师团队</p><div class="teacher-buttons"><button class="teacher-btn" onclick="openTeacherModal('homeroom','班主任')"><span class="btn-icon">👨</span><span>班主任</span></button><button class="teacher-btn" onclick="openTeacherModal('chinese','语文老师')"><span class="btn-icon">📚</span><span>语文老师</span></button><button class="teacher-btn" onclick="openTeacherModal('math','数学老师')"><span class="btn-icon">🧮</span><span>数学老师</span></button><button class="teacher-btn" onclick="openTeacherModal('english','英语老师')"><span class="btn-icon">🌍</span><span>英语老师</span></button></div></div></section>
-<section id="members" class="section"><div class="container"><h2>同学风采</h2><p class="section-desc">点击查看每位同学的详细介绍</p><button class="teacher-btn" onclick="openClassmatesModal()" style="width:75%;margin:20px auto;display:block;max-width:75vw;"><span class="btn-icon">👥</span><span>同学风采</span></button></div></section>
+<section id="about" class="section section-alt"><div class="container"><h2>老师介绍</h2><p class="section-desc">我们的教师团队</p><div class="teacher-buttons">
+<button class="teacher-btn" onclick="openTeacherModal('homeroom','班主任')"><span class="btn-icon">👨</span><span>班主任</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('chinese','语文')"><span class="btn-icon">📚</span><span>语文</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('math','数学')"><span class="btn-icon">🧮</span><span>数学</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('english','英语')"><span class="btn-icon">🌍</span><span>英语</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('pe','体育')"><span class="btn-icon">⚽</span><span>体育</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('biology','生物')"><span class="btn-icon">🧬</span><span>生物</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('geography','地理')"><span class="btn-icon">🌏</span><span>地理</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('history','历史')"><span class="btn-icon">📜</span><span>历史</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('politics','道法')"><span class="btn-icon">⚖️</span><span>道法</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('art','美术')"><span class="btn-icon">🎨</span><span>美术</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('music','音乐')"><span class="btn-icon">🎵</span><span>音乐</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('ai','人工智能')"><span class="btn-icon">🤖</span><span>人工智能</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('it','信息')"><span class="btn-icon">💻</span><span>信息</span></button>
+</div></div></section>
+<section id="members" class="section"><div class="container"><h2>同学风采</h2><button class="teacher-btn" onclick="openClassmatesModal()" style="width:75%;margin:20px auto;display:block;max-width:75vw;"><span class="btn-icon">👥</span><span>点击查看同学详情</span></button></div></section>
 <section id="gallery" class="section section-alt"><div class="container"><h2>照片墙</h2><p class="section-desc">记录我们的美好时光</p><div class="gallery-grid"><div class="photo-card"><div class="photo-placeholder">🏃</div><p>运动会</p></div><div class="photo-card"><div class="photo-placeholder">🚌</div><p>春游活动</p></div><div class="photo-card"><div class="photo-placeholder">🎤</div><p>文艺汇演</p></div><div class="photo-card"><div class="photo-placeholder">📚</div><p>课堂瞬间</p></div><div class="photo-card"><div class="photo-placeholder">🎉</div><p>班级聚会</p></div><div class="photo-card"><div class="photo-placeholder">🏆</div><p>荣誉时刻</p></div></div></div></section>
 <section id="calendar" class="section"><div class="container"><h2>重要日期</h2><p class="section-desc">班级重要活动和考试安排</p><div class="calendar-list"><div class="calendar-item"><div class="date-badge"><span class="day">--</span><span class="month">--</span></div><div class="event-info"><h4>待添加</h4><p>欢迎添加班级重要日期</p></div></div><div class="calendar-item"><div class="date-badge"><span class="day">--</span><span class="month">--</span></div><div class="event-info"><h4>待添加</h4><p>比如：期中考试、运动会、春游等</p></div></div></div></div></section>
 
@@ -89,9 +106,18 @@
 <div class="modal-body">
 <div class="teacher-buttons">
 <button class="teacher-btn" onclick="openTeacherModal('homeroom','班主任')"><span class="btn-icon">👨</span><span>班主任</span></button>
-<button class="teacher-btn" onclick="openTeacherModal('chinese','语文老师')"><span class="btn-icon">📚</span><span>语文老师</span></button>
-<button class="teacher-btn" onclick="openTeacherModal('math','数学老师')"><span class="btn-icon">🧮</span><span>数学老师</span></button>
-<button class="teacher-btn" onclick="openTeacherModal('english','英语老师')"><span class="btn-icon">🌍</span><span>英语老师</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('chinese','语文')"><span class="btn-icon">📚</span><span>语文</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('math','数学')"><span class="btn-icon">🧮</span><span>数学</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('english','英语')"><span class="btn-icon">🌍</span><span>英语</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('pe','体育')"><span class="btn-icon">⚽</span><span>体育</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('biology','生物')"><span class="btn-icon">🧬</span><span>生物</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('geography','地理')"><span class="btn-icon">🌏</span><span>地理</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('history','历史')"><span class="btn-icon">📜</span><span>历史</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('politics','道法')"><span class="btn-icon">⚖️</span><span>道法</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('art','美术')"><span class="btn-icon">🎨</span><span>美术</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('music','音乐')"><span class="btn-icon">🎵</span><span>音乐</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('ai','人工智能')"><span class="btn-icon">🤖</span><span>人工智能</span></button>
+<button class="teacher-btn" onclick="openTeacherModal('it','信息')"><span class="btn-icon">💻</span><span>信息</span></button>
 </div>
 <div id="teacherProfile" style="margin-top:30px;padding:20px;background:#f8f9fa;border-radius:15px;display:none;">
 <h4 id="teacherName" style="margin-top:0;font-size:1.5rem;"></h4>
@@ -108,21 +134,58 @@
 <div class="modal-header">
 <h3>👥 同学风采</h3>
 </div>
-<div style="text-align:center;padding:15px;background:#f8f9fa;color:#999;font-size:1.1rem;">👈 点击左侧同学头像查看简介</div>
+<div style="text-align:center;padding:15px;background:#f8f9fa;color:#999;font-size:1.1rem;">👈 点击左侧同学姓名查看详情</div>
 <div class="modal-body" style="padding:0;">
 <div class="classmates-container">
 <!-- 左侧 1/4：同学按钮 -->
 <div class="classmates-left">
-<button class="teacher-btn" onclick="openStudentModal('student1','魏千辰')"><span>魏千辰</span></button>
-<button class="teacher-btn" onclick="openStudentModal('student2','同学 2')"><span>同学 2</span></button>
-<button class="teacher-btn" onclick="openStudentModal('student3','同学 3')"><span>同学 3</span></button>
-<button class="teacher-btn" onclick="openStudentModal('student4','同学 4')"><span>同学 4</span></button>
-<button class="teacher-btn" onclick="openStudentModal('student5','同学 5')"><span>同学 5</span></button>
-<button class="teacher-btn" onclick="openStudentModal('student6','同学 6')"><span>同学 6</span></button>
-<button class="teacher-btn" onclick="openStudentModal('student7','同学 7')"><span>同学 7</span></button>
-<button class="teacher-btn" onclick="openStudentModal('student8','同学 8')"><span>同学 8</span></button>
-<button class="teacher-btn" onclick="openStudentModal('student9','同学 9')"><span>同学 9</span></button>
-<button class="teacher-btn" onclick="openStudentModal('student10','同学 10')"><span>同学 10</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student1','1.同学 1')"><span>1.同学 1</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student2','2.同学 2')"><span>2.同学 2</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student3','3.同学 3')"><span>3.同学 3</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student4','4.同学 4')"><span>4.同学 4</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student5','5.同学 5')"><span>5.同学 5</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student6','6.同学 6')"><span>6.同学 6</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student7','7.同学 7')"><span>7.同学 7</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student8','8.同学 8')"><span>8.同学 8</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student9','9.同学 9')"><span>9.同学 9</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student10','10.同学 10')"><span>10.同学 10</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student11','11.同学 11')"><span>11.同学 11</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student12','12.同学 12')"><span>12.同学 12</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student13','13.同学 13')"><span>13.同学 13</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student14','14.同学 14')"><span>14.同学 14</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student16','16.同学 16')"><span>16.同学 16</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student17','17.同学 17')"><span>17.同学 17</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student18','18.同学 18')"><span>18.同学 18</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student19','19.同学 19')"><span>19.同学 19</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student20','20.同学 20')"><span>20.同学 20</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student21','21.同学 21')"><span>21.同学 21</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student22','22.同学 22')"><span>22.同学 22</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student23','23.同学 23')"><span>23.同学 23</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student24','24.同学 24')"><span>24.同学 24</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student25','25.同学 25')"><span>25.同学 25</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student26','26.同学 26')"><span>26.同学 26</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student27','27.同学 27')"><span>27.同学 27</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student28','28.同学 28')"><span>28.同学 28</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student29','29.同学 29')"><span>29.同学 29</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student30','30.同学 30')"><span>30.同学 30</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student31','31.同学 31')"><span>31.同学 31</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student32','32.同学 32')"><span>32.同学 32</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student33','33.同学 33')"><span>33.同学 33</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student34','34.同学 34')"><span>34.同学 34</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student35','35.同学 35')"><span>35.同学 35</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student36','36.同学 36')"><span>36.同学 36</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student37','37.同学 37')"><span>37.同学 37</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student38','38.同学 38')"><span>38.同学 38</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student40','40.魏千辰')"><span>40.魏千辰</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student41','41.同学 41')"><span>41.同学 41</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student42','42.同学 42')"><span>42.同学 42</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student43','43.同学 43')"><span>43.同学 43</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student44','44.同学 44')"><span>44.同学 44</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student45','45.同学 45')"><span>45.同学 45</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student46','46.同学 46')"><span>46.同学 46</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student47','47.同学 47')"><span>47.同学 47</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student48','48.同学 48')"><span>48.同学 48</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student49','49.同学 49')"><span>49.同学 49</span></button>
 </div>
 
 <!-- 右侧 3/4：同学简介 -->
@@ -145,8 +208,8 @@
 var currentTeacher=null;
 function openTeacherModal(identifier,title){
     currentTeacher=identifier;
-    document.getElementById('teacherModalTitle').textContent=title+'介绍';
-    document.getElementById('teacherModalDesc').textContent='姓名：（待补充）| 简介：（待补充）| 寄语：（待补充）';
+    document.getElementById('teacherModalTitle').textContent=title;
+    document.getElementById('teacherModalDesc').textContent='点击按钮查看老师详情';
     document.getElementById('teacherName').textContent='👤 '+title;
     document.getElementById('teacherInfo').textContent='姓名：（待补充）\n简介：（待补充）\n寄语：（待补充）\n\n📝 联系管理员补充完整信息';
     document.getElementById('teacherProfile').style.display='block';
@@ -189,8 +252,10 @@ function openStudentModal(id,name){
     currentStudent=id;
     document.getElementById('studentProfile').classList.add('active');
     document.getElementById('profileClose').classList.add('active');
-    document.getElementById('studentName').textContent='👤 '+name;
-    document.getElementById('studentInfo').textContent='姓名：'+name+'\n\n简介：（待补充）\n爱好：（待补充）\n座右铭：（待补充）\n\n📝 联系管理员补充完整信息';
+    // 去掉学号，只显示姓名
+    var studentName=name.split('.')[1]||name;
+    document.getElementById('studentName').textContent='👤 '+studentName;
+    document.getElementById('studentInfo').textContent='姓名：'+studentName+'\n\n简介：（待补充）\n\n📝 联系管理员补充完整信息';
 }
 function closeStudentProfile(){
     document.getElementById('studentProfile').classList.remove('active');
