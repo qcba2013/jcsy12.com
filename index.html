@@ -6,8 +6,8 @@
 <title>七年级 12 班 - 我们的班级主页</title>
 <link rel="stylesheet" href="css/style.css">
 <style>
-#teacherModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:2000;justify-content:center;align-items:center}
-#teacherModal.active{display:flex}
+#teacherModal,#classmatesModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:2000;justify-content:center;align-items:center}
+#teacherModal.active,#classmatesModal.active{display:flex}
 .modal-content{background:white;padding:30px;border-radius:20px;width:90%;max-width:700px;max-height:85vh;overflow-y:auto;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
 .modal-close{position:absolute;top:15px;right:20px;font-size:2.5rem;background:none;border:none;color:#999;cursor:pointer;transition:color 0.3s;z-index:2002;line-height:1}
 .modal-close:hover{color:#4a90d9}
@@ -45,7 +45,7 @@
 </nav>
 
 <section id="home" class="hero"><div class="hero-content"><h1>欢迎来到七年级 12 班！</h1><p class="slogan">团结友爱 · 勤奋学习 · 快乐成长</p><a href="#about" class="btn">了解我们</a></div></section>
-<section id="about" class="section section-alt"><div class="container"><h2>老师介绍</h2><p class="section-desc">我们的教师团队</p><div class="about-content"><button class="teacher-btn" onclick="openTeacherModal('homeroom','班主任')"><span class="btn-icon">👩‍</span><span>班主任</span></button><button class="teacher-btn" onclick="openTeacherModal('chinese','语文老师')"><span class="btn-icon">📚</span><span>语文老师</span></button><button class="teacher-btn" onclick="openTeacherModal('math','数学老师')"><span class="btn-icon">🧮</span><span>数学老师</span></button><button class="teacher-btn" onclick="openTeacherModal('english','英语老师')"><span class="btn-icon">🌍</span><span>英语老师</span></button></div></div></section>
+<section id="about" class="section section-alt"><div class="container"><h2>老师介绍</h2><p class="section-desc">我们的教师团队</p><div class="about-content"><button class="teacher-btn" onclick="openTeacherModal('homeroom','班主任')"><span class="btn-icon">👨</span><span>班主任</span></button><button class="teacher-btn" onclick="openTeacherModal('chinese','语文老师')"><span class="btn-icon">📚</span><span>语文老师</span></button><button class="teacher-btn" onclick="openTeacherModal('math','数学老师')"><span class="btn-icon">🧮</span><span>数学老师</span></button><button class="teacher-btn" onclick="openTeacherModal('english','英语老师')"><span class="btn-icon">🌍</span><span>英语老师</span></button></div></div></section>
 <section id="members" class="section"><div class="container"><h2>同学风采</h2><p class="section-desc">点击查看每位同学的详细介绍</p><button class="teacher-btn" onclick="openClassmatesModal()"><span class="btn-icon">👥</span><span>同学风采</span></button></div></section>
 <section id="gallery" class="section section-alt"><div class="container"><h2>照片墙</h2><p class="section-desc">记录我们的美好时光</p><div class="gallery-grid"><div class="photo-card"><div class="photo-placeholder">🏃</div><p>运动会</p></div><div class="photo-card"><div class="photo-placeholder">🚌</div><p>春游活动</p></div><div class="photo-card"><div class="photo-placeholder">🎤</div><p>文艺汇演</p></div><div class="photo-card"><div class="photo-placeholder">📚</div><p>课堂瞬间</p></div><div class="photo-card"><div class="photo-placeholder">🎉</div><p>班级聚会</p></div><div class="photo-card"><div class="photo-placeholder">🏆</div><p>荣誉时刻</p></div></div></div></section>
 <section id="calendar" class="section"><div class="container"><h2>重要日期</h2><p class="section-desc">班级重要活动和考试安排</p><div class="calendar-list"><div class="calendar-item"><div class="date-badge"><span class="day">--</span><span class="month">--</span></div><div class="event-info"><h4>待添加</h4><p>欢迎添加班级重要日期</p></div></div><div class="calendar-item"><div class="date-badge"><span class="day">--</span><span class="month">--</span></div><div class="event-info"><h4>待添加</h4><p>比如：期中考试、运动会、春游等</p></div></div></div></div></section>
