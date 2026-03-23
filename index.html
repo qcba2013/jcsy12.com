@@ -27,9 +27,11 @@
 /* 同学风采布局 */
 .classmates-container{display:flex;height:100%;gap:20px}
 .classmates-left{width:30%;overflow-y:auto;padding:15px;background:#f0f2f5;border-radius:10px}
-.classmates-left .teacher-btn{width:calc(33.33% - 10px);margin:5px;display:inline-block}
+.classmates-left .teacher-btn{width:calc(33.33% - 10px);margin:5px;padding:8px 5px;font-size:0.9rem;display:inline-block}
+.classmates-left .teacher-btn .btn-icon{display:none}
 .classmates-right{width:75%;background:#f8f9fa;border-radius:15px;padding:25px;overflow-y:auto;position:relative}
-.profile-close{position:absolute;top:10px;right:15px;font-size:2rem;background:transparent;border:none;color:#000;cursor:pointer;transition:opacity 0.3s;z-index:100;font-weight:bold}
+.profile-close{position:absolute;top:10px;right:15px;font-size:2rem;background:transparent;border:none;color:#000;cursor:pointer;transition:opacity 0.3s;z-index:100;font-weight:bold;display:none}
+.profile-close.active{display:block}
 .profile-close:hover{opacity:0.7}
 .student-profile{display:none}
 .student-profile.active{display:block}
@@ -105,28 +107,27 @@
 <button class="modal-close" onclick="closeClassmatesModal()"><b>✕</b></button>
 <div class="modal-header">
 <h3>👥 同学风采</h3>
-<p>点击同学头像查看简介</p>
 </div>
 <div style="text-align:center;padding:15px;background:#f8f9fa;color:#999;font-size:1.1rem;">👈 点击左侧同学头像查看简介</div>
 <div class="modal-body" style="padding:0;">
 <div class="classmates-container">
 <!-- 左侧 1/4：同学按钮 -->
 <div class="classmates-left">
-<button class="teacher-btn" onclick="openStudentModal('student1','魏千辰')"><span class="btn-icon">👦</span><span>魏千辰</span></button>
-<button class="teacher-btn" onclick="openStudentModal('student2','同学 2')"><span class="btn-icon">👧</span><span>同学 2</span></button>
-<button class="teacher-btn" onclick="openStudentModal('student3','同学 3')"><span class="btn-icon">👦</span><span>同学 3</span></button>
-<button class="teacher-btn" onclick="openStudentModal('student4','同学 4')"><span class="btn-icon">👧</span><span>同学 4</span></button>
-<button class="teacher-btn" onclick="openStudentModal('student5','同学 5')"><span class="btn-icon">👦</span><span>同学 5</span></button>
-<button class="teacher-btn" onclick="openStudentModal('student6','同学 6')"><span class="btn-icon">👧</span><span>同学 6</span></button>
-<button class="teacher-btn" onclick="openStudentModal('student7','同学 7')"><span class="btn-icon">👦</span><span>同学 7</span></button>
-<button class="teacher-btn" onclick="openStudentModal('student8','同学 8')"><span class="btn-icon">👧</span><span>同学 8</span></button>
-<button class="teacher-btn" onclick="openStudentModal('student9','同学 9')"><span class="btn-icon">👦</span><span>同学 9</span></button>
-<button class="teacher-btn" onclick="openStudentModal('student10','同学 10')"><span class="btn-icon">👧</span><span>同学 10</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student1','魏千辰')"><span>魏千辰</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student2','同学 2')"><span>同学 2</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student3','同学 3')"><span>同学 3</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student4','同学 4')"><span>同学 4</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student5','同学 5')"><span>同学 5</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student6','同学 6')"><span>同学 6</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student7','同学 7')"><span>同学 7</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student8','同学 8')"><span>同学 8</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student9','同学 9')"><span>同学 9</span></button>
+<button class="teacher-btn" onclick="openStudentModal('student10','同学 10')"><span>同学 10</span></button>
 </div>
 
 <!-- 右侧 3/4：同学简介 -->
 <div class="classmates-right">
-<button class="profile-close" onclick="closeStudentProfile()"><b>✕</b></button>
+<button id="profileClose" class="profile-close" onclick="closeStudentProfile()"><b>✕</b></button>
 <div id="studentProfile" class="student-profile">
 <h4 id="studentName"></h4>
 <p id="studentInfo"></p>
@@ -187,11 +188,13 @@ function closeClassmatesModal(){
 function openStudentModal(id,name){
     currentStudent=id;
     document.getElementById('studentProfile').classList.add('active');
+    document.getElementById('profileClose').classList.add('active');
     document.getElementById('studentName').textContent='👤 '+name;
     document.getElementById('studentInfo').textContent='姓名：'+name+'\n\n简介：（待补充）\n爱好：（待补充）\n座右铭：（待补充）\n\n📝 联系管理员补充完整信息';
 }
 function closeStudentProfile(){
     document.getElementById('studentProfile').classList.remove('active');
+    document.getElementById('profileClose').classList.remove('active');
     currentStudent=null;
 }
 document.addEventListener('keydown',function(e){
