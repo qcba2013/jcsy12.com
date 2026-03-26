@@ -10,9 +10,9 @@
 .nav-lightning{width:50px;height:50px;flex-shrink:0;filter:drop-shadow(0 0 10px #FFD700);animation:lightning-pulse 1s ease-in-out infinite}
 @keyframes lightning-pulse{0%,100%{transform:scale(1);opacity:1;filter:drop-shadow(0 0 10px #FFD700)}50%{transform:scale(1.2);opacity:0.85;filter:drop-shadow(0 0 25px #FFD700) drop-shadow(0 0 45px #FFA500)}}
 
-/* 老师/同学模态框 */
-#teacherModal,#classmatesModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:2000;justify-content:center;align-items:center}
-#teacherModal.active,#classmatesModal.active{display:flex}
+/* 模态框 */
+#teacherModal,#classmatesModal,#galleryModal,#textSquareModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:2000;justify-content:center;align-items:center}
+#teacherModal.active,#classmatesModal.active,#galleryModal.active,#textSquareModal.active{display:flex}
 .modal-content{background:white;border-radius:20px;width:75%;max-width:75vw;height:75%;max-height:75vh;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.3);overflow:hidden;display:flex;flex-direction:column}
 .modal-header{background:linear-gradient(135deg,#4a90d9,#67b26f);padding:20px;text-align:center;color:white;flex-shrink:0}
 .modal-header h3{margin:0 0 5px 0;font-size:1.8rem}
@@ -25,13 +25,13 @@
 .teacher-buttons{display:flex;flex-wrap:wrap;gap:15px;justify-content:center}
 .teacher-buttons .teacher-btn{width:calc(12.5% - 15px);margin:5px 0;padding:15px 10px}
 
-/* 同学风采布局 */
-.classmates-container{display:flex;height:100%;gap:20px}
-.classmates-left{width:30%;overflow-y:auto;padding:15px;background:#f0f2f5;border-radius:10px}
-.classmates-left .teacher-btn{width:calc(33.33% - 8px);margin:4px;padding:10px 5px;font-size:0.85rem;display:block;float:left;transition:transform 0.2s,box-shadow 0.2s}
-.classmates-left .teacher-btn:hover{transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,0,0,0.15)}
-.classmates-left .teacher-btn .btn-icon{display:none}
-.classmates-left::after{content:"";display:table;clear:both}
+/* 同学风采/照片墙布局 */
+.classmates-container,.gallery-container{display:flex;height:100%;gap:20px}
+.classmates-left,.gallery-left{width:30%;overflow-y:auto;padding:15px;background:#f0f2f5;border-radius:10px}
+.classmates-left .teacher-btn,.gallery-left .teacher-btn{width:calc(33.33% - 8px);margin:4px;padding:10px 5px;font-size:0.85rem;display:block;float:left;transition:transform 0.2s,box-shadow 0.2s}
+.classmates-left .teacher-btn:hover,.gallery-left .teacher-btn:hover{transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,0,0,0.15)}
+.classmates-left .teacher-btn .btn-icon,.gallery-left .teacher-btn .btn-icon{display:none}
+.classmates-left::after,.gallery-left::after{content:"";display:table;clear:both}
 .classmates-right{width:75%;background:#f8f9fa;border-radius:15px;padding:25px;overflow-y:auto;position:relative}
 .profile-close{position:absolute;top:10px;right:15px;font-size:2rem;background:transparent;border:none;color:#000;cursor:pointer;transition:opacity 0.3s;z-index:100;font-weight:bold;display:none}
 .profile-close.active{display:block}
@@ -58,6 +58,7 @@
 <li><a href="#members">同学风采</a></li>
 <li><a href="#gallery">照片墙</a></li>
 <li><a href="#calendar">重要日期</a></li>
+<li><a href="#text-square">文字广场</a></li>
 <li><a href="#message">留言板</a></li>
 </ul>
 
@@ -67,7 +68,14 @@
 </div>
 </nav>
 
-<section id="home" class="hero"><div class="hero-content"><h1>欢迎来到七年级 12 班！</h1><p class="slogan">团结友爱 · 勤奋学习 · 快乐成长</p><a href="#about" class="btn">了解我们</a></div></section>
+<section id="home" class="hero">
+<div class="hero-content">
+<h1>欢迎来到七年级 12 班！</h1>
+<p class="slogan">进才实验中学</p>
+<a href="#about" class="btn">了解我们</a>
+</div>
+<p style="position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:0.9rem;opacity:0.8;">由 wqc&小虾创建</p>
+</section>
 <section id="about" class="section section-alt"><div class="container"><h2>老师介绍</h2><p class="section-desc">我们的教师团队</p><div class="teacher-buttons">
 <button class="teacher-btn" onclick="openTeacherModal('homeroom','班主任')"><span class="btn-icon">👨</span><span>班主任</span></button>
 <button class="teacher-btn" onclick="openTeacherModal('chinese','语文')"><span class="btn-icon">📚</span><span>语文</span></button>
@@ -84,8 +92,23 @@
 <button class="teacher-btn" onclick="openTeacherModal('it','信息')"><span class="btn-icon">💻</span><span>信息</span></button>
 </div></div></section>
 <section id="members" class="section"><div class="container"><h2>同学风采</h2><button class="teacher-btn" onclick="openClassmatesModal()" style="width:75%;margin:20px auto;display:block;max-width:75vw;"><span class="btn-icon">👥</span><span>点击查看同学详情</span></button></div></section>
-<section id="gallery" class="section section-alt"><div class="container"><h2>照片墙</h2><p class="section-desc">记录我们的美好时光</p><div class="gallery-grid"><div class="photo-card"><div class="photo-placeholder">🏃</div><p>运动会</p></div><div class="photo-card"><div class="photo-placeholder">🚌</div><p>春游活动</p></div><div class="photo-card"><div class="photo-placeholder">🎤</div><p>文艺汇演</p></div><div class="photo-card"><div class="photo-placeholder">📚</div><p>课堂瞬间</p></div><div class="photo-card"><div class="photo-placeholder">🎉</div><p>班级聚会</p></div><div class="photo-card"><div class="photo-placeholder">🏆</div><p>荣誉时刻</p></div></div></div></section>
+<section id="gallery" class="section section-alt">
+<div class="container">
+<h2>照片墙</h2>
+<p class="section-desc">记录我们的美好时光</p>
+<button class="teacher-btn" onclick="openGalleryModal()" style="width:75%;margin:20px auto;display:block;max-width:75vw;"><span class="btn-icon">📷</span><span>查看照片墙</span></button>
+</div>
+</section>
 <section id="calendar" class="section"><div class="container"><h2>重要日期</h2><p class="section-desc">班级重要活动和考试安排</p><div class="calendar-list"><div class="calendar-item"><div class="date-badge"><span class="day">--</span><span class="month">--</span></div><div class="event-info"><h4>待添加</h4><p>欢迎添加班级重要日期</p></div></div><div class="calendar-item"><div class="date-badge"><span class="day">--</span><span class="month">--</span></div><div class="event-info"><h4>待添加</h4><p>比如：期中考试、运动会、春游等</p></div></div></div></div></section>
+
+<!-- 文字广场 -->
+<section id="text-square" class="section section-alt">
+<div class="container">
+<h2>文字广场</h2>
+<p class="section-desc">记录班级点滴、有趣的事情</p>
+<button class="teacher-btn" onclick="openTextSquareModal()" style="width:75%;margin:20px auto;display:block;max-width:75vw;"><span class="btn-icon">📝</span><span>查看文字广场</span></button>
+</div>
+</section>
 
 <!-- 留言板 -->
 <section id="message" class="section section-alt">
@@ -137,7 +160,7 @@
 <div style="text-align:center;padding:15px;background:#f8f9fa;color:#999;font-size:1.1rem;">👈 点击左侧同学姓名查看详情</div>
 <div class="modal-body" style="padding:0;">
 <div class="classmates-container">
-<!-- 左侧 1/4：同学按钮 -->
+<!-- 左侧：同学按钮 -->
 <div class="classmates-left">
 <button class="teacher-btn" onclick="openStudentModal('student1','1.同学 1')"><span>1.同学 1</span></button>
 <button class="teacher-btn" onclick="openStudentModal('student2','2.同学 2')"><span>2.同学 2</span></button>
@@ -188,7 +211,7 @@
 <button class="teacher-btn" onclick="openStudentModal('student49','49.同学 49')"><span>49.同学 49</span></button>
 </div>
 
-<!-- 右侧 3/4：同学简介 -->
+<!-- 右侧：同学简介 -->
 <div class="classmates-right">
 <button id="profileClose" class="profile-close" onclick="closeStudentProfile()"><b>✕</b></button>
 <div id="studentProfile" class="student-profile">
@@ -201,7 +224,59 @@
 </div>
 </div>
 
-<footer class="footer"><div class="container"><p>🦐由 小虾 AI 助手 协助创建</p><p>七年级 12 班 © 2026 - 我们的青春纪念</p></div></footer>
+<!-- 照片墙模态框 -->
+<div id="galleryModal">
+<div class="modal-content">
+<button class="modal-close" onclick="closeGalleryModal()"><b>✕</b></button>
+<div class="modal-header">
+<h3>📷 照片墙</h3>
+</div>
+<div style="text-align:center;padding:15px;background:#f8f9fa;color:#999;font-size:1.1rem;">👈 点击左侧照片查看详情</div>
+<div class="modal-body" style="padding:0;">
+<div class="gallery-container">
+<!-- 左侧：照片按钮 -->
+<div class="gallery-left">
+<button class="teacher-btn" onclick="openPhotoModal('photo1','运动会')"><span>运动会</span></button>
+<button class="teacher-btn" onclick="openPhotoModal('photo2','春游活动')"><span>春游活动</span></button>
+<button class="teacher-btn" onclick="openPhotoModal('photo3','文艺汇演')"><span>文艺汇演</span></button>
+<button class="teacher-btn" onclick="openPhotoModal('photo4','课堂瞬间')"><span>课堂瞬间</span></button>
+<button class="teacher-btn" onclick="openPhotoModal('photo5','班级聚会')"><span>班级聚会</span></button>
+<button class="teacher-btn" onclick="openPhotoModal('photo6','荣誉时刻')"><span>荣誉时刻</span></button>
+<button class="teacher-btn" onclick="openPhotoModal('photo7','社会实践')"><span>社会实践</span></button>
+<button class="teacher-btn" onclick="openPhotoModal('photo8','主题班会')"><span>主题班会</span></button>
+<button class="teacher-btn" onclick="openPhotoModal('photo9','体育比赛')"><span>体育比赛</span></button>
+<button class="teacher-btn" onclick="openPhotoModal('photo10','课外活动')"><span>课外活动</span></button>
+</div>
+
+<!-- 右侧：照片详情 -->
+<div class="classmates-right">
+<button id="photoClose" class="profile-close" onclick="closePhotoModal()"><b>✕</b></button>
+<div id="photoProfile" class="student-profile">
+<h4 id="photoName"></h4>
+<p id="photoInfo"></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 文字广场模态框 -->
+<div id="textSquareModal">
+<div class="modal-content">
+<button class="modal-close" onclick="closeTextSquareModal()"><b>✕</b></button>
+<div class="modal-header">
+<h3>📝 文字广场</h3>
+</div>
+<div class="modal-body">
+<div style="background:#f8f9fa;padding:30px;border-radius:15px;">
+<p style="margin:0;font-size:1.2rem;color:#666;line-height:1.8;">冷知识：按 win+v 打开表情包。 表情包供复制：⚡🌩️⌁👨‍❤️‍💋‍👨👩‍❤️‍💋‍👩（别问我为什么 windows 表情包里有给和拉）</p>
+</div>
+</div>
+</div>
+</div>
+
+<footer class="footer"><div class="container"><p>🦐由 小虾 AI 助手 协助创建</p><p>七年级 12 班 © 2026 - 我们的青春纪念</p><p style="font-size:0.85rem;opacity:0.7;margin-top:15px;">由 wqc&小虾创建</p></div></footer>
 
 <script>
 // 老师模态框
@@ -210,8 +285,27 @@ function openTeacherModal(identifier,title){
     currentTeacher=identifier;
     document.getElementById('teacherModalTitle').textContent=title;
     document.getElementById('teacherModalDesc').textContent='点击按钮查看老师详情';
-    document.getElementById('teacherName').textContent='👤 '+title;
-    document.getElementById('teacherInfo').textContent='姓名：（待补充）\n简介：（待补充）\n寄语：（待补充）\n\n📝 联系管理员补充完整信息';
+    
+    // 老师姓名
+    var teacherNames={
+        'homeroom':'张成峰',
+        'chinese':'茅老师',
+        'math':'杨老师',
+        'english':'张老师',
+        'pe':'朱超',
+        'biology':'王老师',
+        'geography':'未知',
+        'history':'未知',
+        'politics':'未知',
+        'art':'王老师',
+        'music':'未知',
+        'ai':'未知',
+        'it':'未知'
+    };
+    var teacherName=teacherNames[identifier]||'未知';
+    
+    document.getElementById('teacherName').textContent='👤 '+title+' - '+teacherName;
+    document.getElementById('teacherInfo').textContent='姓名：'+teacherName+'\n\n简介：（待补充）\n\n📝 联系管理员补充完整信息';
     document.getElementById('teacherProfile').style.display='block';
     var modal=document.getElementById('teacherModal');
     modal.style.display='flex';
@@ -265,6 +359,59 @@ function closeStudentProfile(){
 document.addEventListener('keydown',function(e){
     if(e.key==='Escape'&&document.getElementById('classmatesModal').classList.contains('active')){
         closeClassmatesModal();
+    }
+});
+
+// 照片墙模态框
+var currentPhoto=null;
+function openGalleryModal(){
+    closePhotoModal();
+    var modal=document.getElementById('galleryModal');
+    modal.style.display='flex';
+    modal.classList.add('active');
+    document.body.style.overflow='hidden';
+}
+function closeGalleryModal(){
+    var modal=document.getElementById('galleryModal');
+    modal.style.display='none';
+    modal.classList.remove('active');
+    document.body.style.overflow='';
+    currentPhoto=null;
+}
+function openPhotoModal(id,name){
+    currentPhoto=id;
+    document.getElementById('photoProfile').classList.add('active');
+    document.getElementById('photoClose').classList.add('active');
+    document.getElementById('photoName').textContent='📷 '+name;
+    document.getElementById('photoInfo').textContent='📸 '+name+'\n\n📝 照片描述：（待添加）\n📅 拍摄时间：（待添加）\n\n联系管理员添加照片和描述';
+}
+function closePhotoModal(){
+    document.getElementById('photoProfile').classList.remove('active');
+    document.getElementById('photoClose').classList.remove('active');
+    currentPhoto=null;
+}
+document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&document.getElementById('galleryModal').classList.contains('active')){
+        closeGalleryModal();
+    }
+});
+
+// 文字广场模态框
+function openTextSquareModal(){
+    var modal=document.getElementById('textSquareModal');
+    modal.style.display='flex';
+    modal.classList.add('active');
+    document.body.style.overflow='hidden';
+}
+function closeTextSquareModal(){
+    var modal=document.getElementById('textSquareModal');
+    modal.style.display='none';
+    modal.classList.remove('active');
+    document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&document.getElementById('textSquareModal').classList.contains('active')){
+        closeTextSquareModal();
     }
 });
 </script>
